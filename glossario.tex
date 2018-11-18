@@ -1,0 +1,49 @@
+
+%**************************************************************
+% Acronimi
+%**************************************************************
+\renewcommand{\acronymname}{Acronimi e abbreviazioni}
+
+\newacronym[description={\glslink{apig}{Application Program Interface}}]
+    {api}{API}{Application Program Interface}
+
+\newacronym[description={\glslink{umlg}{Unified Modeling Language}}]
+    {uml}{UML}{Unified Modeling Language}
+
+%**************************************************************
+% Glossario
+%**************************************************************
+%\renewcommand{\glossaryname}{Glossario}
+
+\newglossaryentry{apig}
+{
+    name=\glslink{api}{API},
+    text=Application Program Interface,
+    sort=api,
+    description={in informatica con il termine \emph{Application Programming Interface API} (ing. interfaccia di programmazione di un'applicazione) si indica ogni insieme di procedure disponibili al programmatore, di solito raggruppate a formare un set di strumenti specifici per l'espletamento di un determinato compito all'interno di un certo programma. La finalità è ottenere un'astrazione, di solito tra l'hardware e il programmatore o tra software a basso e quello ad alto livello semplificando così il lavoro di programmazione}
+}
+
+\newglossaryentry{cluster}
+{
+    name=\glslink{cluster}{cluster},
+    text=cluster,
+    sort=cluster,
+    description={(indicato anche come computer cluster) insieme di macchine connesse tra loro che lavorano in parallelo.
+    L'utilizzo di questi sistemi permette di distribuire un'elaborazione molto complessa tra le varie macchine, aumentando la potenza di calcolo del sistema e/o garantendo una maggiore disponibilità di servizio, a prezzo di un maggior costo e complessità di gestione dell'infrastruttura: per essere risolto, il problema che richiede molte elaborazioni, viene infatti scomposto in sottoproblemi separati i quali vengono risolti ciascuno in parallelo su tutti i nodi che compongono il cluster.}
+}
+
+\newglossaryentry{web app}
+{
+	name=\glslink{web app}{web app},
+	text=web app,
+	sort=web app,
+	description={sistema di tipo client-server in cui l'interfaccia utente e la logica client-side viene eseguita in un browser web.}
+}
+
+\newglossaryentry{Software Development Lifecycle (SDLC)}
+{
+	name=\glslink{Software Development Lifecycle}{SDLC},
+	text=Software Development Lifecycle,
+	sort=SDLC,
+	description={processo di divisione del lavoro di sviluppo software in fasi distinte per migliorare la progettazione, la gestione del prodotto e la gestione del progetto.}
+}
