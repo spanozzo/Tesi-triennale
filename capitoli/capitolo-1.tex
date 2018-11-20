@@ -33,15 +33,40 @@ Nel corso degli anni l'azienda ha consolidato le proprie conoscenze soprattutto 
 %**************************************************************
 \section{Tecnologie utilizzate}
 
-Le tecnologie utilizzate dall’azienda per la realizzazione dei propri prodotti si possono raggruppare in due macro-sezioni, ovvero riguardante lo sviluppo software e l'attività di \textit{data science}.
+Le tecnologie utilizzate dall’azienda per la realizzazione dei propri prodotti si possono raggruppare in due macro-sezioni, ovvero riguardante lo sviluppo software e le attività inerenti ai \textit{big data}.
 Per quanto concerne la prima, si può suddividere ulteriormente in due aree: \textit{backend} e \textit{frontend}.
+
 \subsection{Sviluppo software}
-\textbf{Backend}: buona parte del \textit{backend} dei prodotti dell'azienda è scritta in linguaggio Java\footcite{https://www.java.com}. Questa scelta è dovuta al grande supporto offerto da questo linguaggio in fatto di controllo degli accessi e sicurezza di applicativi delicati come quelli in ambito bancario e assicurativo;\\\\
-\textbf{Frontend}: per quanto riguarda il \textit{frontend} è utilizzato il \textit{framework} Angular\footcite{https://angular.io/} in quanto offre una grande elasticità d'impiego e buone prestazioni. \\
-\\
-Entrambi questi
+\textbf{Backend}: buona parte del \textit{backend} dei prodotti dell'azienda è scritta in linguaggio Java EE\footcite{https://www.oracle.com/technetwork/java/javaee}. Questa scelta è dovuta al grande supporto offerto da questo linguaggio in fatto di controllo degli accessi e sicurezza di applicativi delicati come quelli in ambito bancario e assicurativo;\\\\
+\textbf{Frontend}: per quanto riguarda il \textit{frontend} è utilizzato prevalentemente il \textit{framework} TypeScript Angular\footcite{https://angular.io/} in quanto offre una grande elasticità d'impiego e buone prestazioni. \\
+
+\subsection{Big Data}
+\textbf{Hadoop}\footcite{https://hadoop.apache.org/}: \textit{framework} utilizzato per la gestione del \textit{cluster} e supporta applicazioni distribuite con elevato accesso ai dati, strutturati tramite il filesystem chiamato HDFS. Permette alle applicazioni di lavorare con migliaia di nodi e petabyte di dati;\\
+\textbf{Hive}\footcite{https://hive.apache.org/}: utilizzato per effettuare le \textit{query} e l'analisi preliminare dei dati in \textit{dataset} di grandi dimensioni;\\
+\textbf{Impala}\footcite{https://impala.apache.org/}: simile ad Hive, ma fornisce prestazioni leggermente migliori a discapito di una minor affidabilità e peggior gestione degli errori; \\
+\textbf{Spark}\footcite{https://spark.apache.org/}: \textit{framework} per il calcolo distribuito di dati strutturati in un cluster. Supporta applicazioni scritte in molteplici linguaggi, quelli utilizzati in azienda sono principalmente Scala e Python;\\
+\textbf{R}\footcite{https://www.r-project.org/}: linguaggio di programmazione e un ambiente di sviluppo specifico per l'analisi statistica dei dati, utilizzato per la stima di modelli predittivi partendo dai dati ricavati utilizzando i precedenti strumenti;\\
+\textbf{Python}\footcite{https://www.python.org/}: grazie alla sua elasticità ed ai suoi svariati utilizzi, Python è utilizzato anche per scopi analoghi al precedente strumento. Essendo la sintassi di questo linguaggio molto semplice, è ultimamente preferito a R.\\
+
 %**************************************************************
 \section{Processi aziendali}
+
+L'azienda svolge il suo operato in base alla tipologia di lavoro da effettuare. Oltre ad eseguire progetti per un possibile cliente, sono attivi progetti per lo sviluppo di nuovo prodotto, dopo aver effettuato le ricerche di mercato d'interesse, da consegnare poi al reparto marketing per trovare compratori interessati; spesso, inoltre, vengono attivati dei progetti in seguito all'interesse relativo ad alcune gare d'appalto, principalmente per il settore privato ma in passato anche per quello pubblico.
+
+\subsection{Metodologia di sviluppo}
+
+\subsubsection{Sviluppo su commissione}
+Per quanto riguarda i progetti relativi allo sviluppo di un nuovo prodotto a seguito di una richiesta da parte di un cliente, vengono eseguite le seguenti attività, supervisionate durante tutta la durata del progetto da un \textit{project manager} per coordinare i lavori ed interfacciarsi con il \textit{management} dell'azienda:
+\begin{enumerate}
+	\item \textbf{Analisi}: svolta in contemporanea dagli analisti e dal reparto marketing per il contatto con il cliente. Solitamente si cerca di partire da prodotti già sviluppati in azienda per poi personalizzarli in base alle richieste del cliente, così da poter offrire soluzioni già di base consolidate e testate in molteplici situazioni. Questo è preferibile soprattutto se le applicazioni sottostanti hanno bisogno di una maggior sicurezza, com'è il caso in ambito finanziario, anche per poter effettuare una manutenzione rapida in caso di malfunzionamenti.\\
+	Il reparto marketing mantiene la maggior parte delle relazioni con il cliente finale all'inizio del rapporto, anche se un colloquio diretto è ovviamente necessario dopo le prime interazioni per poter adottare soluzioni più specifiche e tecnicamente più complesse in base alle necessità del cliente;
+	\item \textbf{Implementazione}: dopo aver identificato i requisiti assieme al cliente, il team incaricato si occupa dell'implementazione del prodotto concordato. Solitamente, per ogni progetto, sono assegnate un certo numero di persone e risorse per occuparsi del \textit{backend} e del \textit{frontend} in base alla complessità ed alle tempistiche del progetto; in base alla tipologia ed alla necessità, questi saranno affiancati anche dal \textit{team} che si occupa di \textit{big data} all'inizio dei lavori per le analisi sui dati necessari. Ogni team è supervisionato da un \textit{team leader} che mantiene il controllo sull'andamento dei lavori e le relazioni con gli altri team di sviluppo ed il \textit{project manager};
+	\item \textbf{Rilascio}: dopo un'attenta attività di \textit{testing} interna all'azienda e di collaudo con il cliente, viene rilasciata una versione stabile del prodotto;
+	\item \textbf{Manutenzione}: con il passare del tempo, il prodotto viene mantenuto e aggiornato secondo nuove specifiche del cliente o in seguito a problemi riscontrati, sia da parte sua sia in caso di problemi in prodotti che condividono la stessa base di partenza e quindi passibili degli stessi errori che potrebbero compromettere la stabilità e la sicurezza del prodotto.
+\end{enumerate}
+
+\subsubsection{Sviluppo nuovo prodotto}
+Nel caso il prodotto non sia precedente commissionato da un cliente, le attività che vengono seguite sono leggermente differenti. 
 
 %**************************************************************
 \section{Tipo di clientela}
