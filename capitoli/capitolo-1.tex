@@ -55,7 +55,7 @@ L'azienda svolge il suo operato in base alla tipologia di lavoro da effettuare. 
 
 \subsection{Metodologia di sviluppo}
 
-\subsubsection{Sviluppo su commissione}
+\subsubsection{Sviluppo su commissione} \label{commissione}
 Per quanto riguarda i progetti relativi allo sviluppo di un nuovo prodotto a seguito di una richiesta da parte di un cliente, vengono eseguite le seguenti attività, supervisionate durante tutta la durata del progetto da un \textit{project manager} per coordinare i lavori ed interfacciarsi con il \textit{management} dell'azienda:
 \begin{enumerate}
 	\item \textbf{Analisi}: svolta in contemporanea dagli analisti e dal reparto marketing per il contatto con il cliente. Solitamente si cerca di partire da prodotti già sviluppati in azienda per poi personalizzarli in base alle richieste del cliente, così da poter offrire soluzioni già di base consolidate e testate in molteplici situazioni. Questo è preferibile soprattutto se le applicazioni sottostanti hanno bisogno di una maggior sicurezza, com'è il caso in ambito finanziario, anche per poter effettuare una manutenzione rapida in caso di malfunzionamenti.\\
@@ -66,12 +66,48 @@ Per quanto riguarda i progetti relativi allo sviluppo di un nuovo prodotto a seg
 \end{enumerate}
 
 \subsubsection{Sviluppo nuovo prodotto}
-Nel caso il prodotto non sia precedente commissionato da un cliente, le attività che vengono seguite sono leggermente differenti. 
+Nel caso il prodotto non sia precedentemente commissionato da un cliente, le attività che vengono seguite sono leggermente differenti. Il reparto marketing ed il team \textit{big data} collabora alla ricerca di un prodotto appetibile per un eventuale cliente esterno a cui verrà in genere presentato solamente un \textit{\gls{MVP}}: in questo modo è possibile presentare all'interessato un prototipo del prodotto con alcune funzionalità essenziali e significative, senza perdite inutili di tempo e risorse per l'azienda. Le attività di implementazione, rilascio e manutenzione che sono eseguite in seguito all'ottenimento di un cliente interessato sono invece pari a quelle dello \hyperref[commissione]{sviluppo su commissione}.
+\begin{figure}[!h] 
+	\centering 
+	\includegraphics[width=0.9\columnwidth]{MVP} 
+	\caption{MVP: Minimum Viable Product}
+\end{figure}
+
+\subsection{Controllo dei versione}
+Come strumento di versionamento del codice, l’azienda utilizza \gls{Git}\footcite{https://git-scm.com/} ed in particolare, per poter gestire tutto il codice derivante dai vari progetti, viene utilizzata la versione \textit{enterprise} di \gls{GitLab}\footcite{https://about.gitlab.com/}, disponibile gratuitamente sotto licenza \textit{open source}.\\
+Alcuni dei vantaggi che ha spinto l’azienda ad utilizzare Git sono:
+\begin{itemize}
+	\item \textbf{Ridondanza}: ogni sviluppatore possiede una copia dell’intera \textit{repository}. Il rischio di perdita dei sorgenti del progetto è quindi inversamente proporzionale al numero di sviluppatori che ne possiedono in locale l’ultima versione; in caso di perdita del progetto di uno sviluppatore quindi si andrà incontro solamente alla perdita delle ultime modifiche personali fatte;
+	\item \textbf{Disponibilità}: anche in assenza di connessione alla \textit{repository} principale, è possibile continuare ad effettuare \textit{commit} ed a salvare le modifiche fatte nel tempo. Una volta ripristinata la connessione, la \textit{repository} locale può essere sincronizzata con quella remota rendendo le modifiche disponibili a tutti;
+	\item \textit{\textbf{Branch e Merge}}: permette con molta facilità la creazione di \textit{branch}, consentendo di creare quindi delle ramificazioni in cui sviluppare funzionalità non stabili, evitando di intaccare il ramo principale dove di norma risiede una versione stabile e testata del prodotto. Nel momento in cui si vogliono salvare le modifiche anche nel ramo principale, \gls{Git} permette di effettuare l’operazione di \textit{merge} del nuovo ramo testato con il ramo principale e considerare quindi le ultime modifiche come stabili;
+	\item \textit{\textbf{Fork e Pull request}}: queste due operazioni permettono di clonare una \textit{repository} (tramite \textit{fork}) e, successivamente, proporre l’inclusione delle modifiche apportante all’interno del clone nella \textit{repository} originale.
+\end{itemize}
+
+\subsection{Ambiente di sviluppo}
+Gli strumenti utilizzati per lo sviluppo, divisi in categorie, sono i seguenti:
+\begin{itemize}
+	\item \textbf{IntelliJ IDEA}\footcite{https://www.jetbrains.com/idea/}: è l'\gls{IDE} utilizzato in prevalenza dagli sviluppatori in quanto supporta vari linguaggi di programmazione e vari tool utili;
+	\item \textbf{Visual Studio Code}\footcite{https://code.visualstudio.com/}: come il precedente, supporta vari linguaggi di programmazione e molteplici estensioni volte a migliorare lo sviluppo. A differenza del precedente, però, non supporta nativamente Java ed è quindi meno utilizzato;
+	\item \textbf{\gls{Bash}}: per effettuare l'analisi dei dati preliminare da parte del team \textins{big data} viene utilizzata la \textit{shell} di \textit{Linux} per eseguire i tool interessati (ad esempio Hive, Impala, Spark o per visualizzare il \textit{filesystem} HDFS).
+\end{itemize}
 
 %**************************************************************
 \section{Tipo di clientela}
+I clienti principali di I.T. Euro Consulting sono aziende nazionali e internazionali che lavorano nei seguenti settori:
+\begin{itemize}
+	\item \textit{\textbf{Banking}}
+	\item \textit{\textbf{Insurance}}
+	\item \textit{\textbf{Telecommunications}}
+	\item \textit{\textbf{Media \& Technology}}
+	\item \textit{\textbf{Public Administration}}
+	\item \textit{\textbf{Retail \& Fashion}}
+	\item \textit{\textbf{Utilities \& Energy}}
+	\item \textit{\textbf{Manufacturing}
+\end{itemize}
 
 %**************************************************************
 \section{Propensione dell'azienda per l'innovazione}
+L’azienda è alla continua ricerca di nuove tecnologie e prodotti innovativi che possano soddisfare sempre più le esigenze del cliente. Nel primo caso l’azienda cerca di cogliere il meglio delle nuove tecnologie per poterne trarre il maggior beneficio possibile attraverso progetti sperimentali e, per la prima volta quest’anno, stage universitari. Essendo l’innovazione un importante fattore di crescita, I.T. Euro Consulting coltiva questo aspetto cercando personale che abbia attitudine al cambiamento e contemporaneamente esprima le proprie soluzioni ai problemi incontrati dando libero sfogo alla propria creatività. Nel secondo caso, invece, l’azienda si prefigge l’obiettivo di creare nuovi prodotti al passo con le esigenze di potenziali clienti, utilizzando le ultime tecnologie disponibili.\\
+Un ulteriore prova della propensione all'innovazione dell'azienda è la presenza di un team specifico ed in continua espansione per l'ambito \textit{big data}, cosa usuale all'estero ma ben più rara in Italia in aziende di medie dimensioni, nelle quali l'importanza dei dati e della potenzialità che essi possiedono non è ancora entrata nell'idea di business delle aziende.
 
 %**************************************************************
