@@ -21,6 +21,13 @@ Nel corso degli anni l'azienda ha consolidato le proprie conoscenze, offrendo sv
 	\item \textbf{Internet of Things}: soluzioni \textit{end-to-end}, basate su tecnologie leader di mercato che consentono di indirizzare in modo efficace la realizzazione di sistemi IoT accelerando la realizzazione di componenti web e mobile per la raccolta, la visualizzazione e l’analisi dei dati;
 	\item \textbf{Reference Architecture}: intesa come \textit{best practice} e struttura di base per un insieme di domini applicativi all’interno di un’organizzazione, la quale agevola il continuo allineamento dei processi e delle strategie con le giuste soluzioni tecnologiche. Vengono quindi offerti servizi di \textit{assessment}, design e consulenza;
 	\item \textbf{DevOps}: automazione delle attività manuali nelle diverse fasi del \gls{SDLC}. Il modello DevOps non si concentra esclusivamente sull’ introduzione di nuovi tool, ma è inteso come una combinazione di cultura e processi unita agli strumenti di automazione. Vengono quindi offerti servizi di \textit{assessment} e consulenza; 
+	
+	\begin{figure}[!h] 
+		\centering 
+		\includegraphics[width=0.6\columnwidth]{devops_lifecycle} 
+		\caption{DevOps lifecycle (https://goo.gl/rh31h6)}
+	\end{figure}
+	\newpage
 	\item \textbf{System Integration}: servizi di consulenza o interventi progettuali per aiutare le aziende a gestire al meglio le proprie strutture tecnologiche complesse e soluzioni applicative per semplificare la coesione fra i vari sottosistemi che compongono la struttura;
 	\item \textbf{Application Management}: servizi di manutenzione correttiva, adattativa ed evolutiva di soluzioni applicative durante il loro intero ciclo di vita;
 	\item \textbf{Customer Relationship Management}: con l'obiettivo di ottenere una visione completa per perseguire uno scenario di \gls{Single Customer View}, abilitante al dialogo \textit{one-to-one} tra l'organizzazione ed il proprio cliente indipendentemente dalle canalità attraverso le quali avviene l'interazione;
@@ -55,7 +62,13 @@ Per quanto concerne la prima, si può suddividere ulteriormente in due aree: \te
 \textbf{Spark}\footcite{https://spark.apache.org/}: \textit{framework} per il calcolo distribuito di dati strutturati in un \gls{cluster}. Supporta applicazioni scritte in molteplici linguaggi, quelli utilizzati in azienda sono principalmente Scala e Python;\\
 \textbf{R}\footcite{https://www.r-project.org/}: linguaggio di programmazione e ambiente di sviluppo specifico per l'analisi statistica dei dati, utilizzato per la stima di modelli predittivi partendo dai dati ricavati utilizzando i precedenti strumenti;\\
 \textbf{Python}\footcite{https://www.python.org/}: grazie alla sua elasticità ed ai suoi svariati utilizzi, Python è utilizzato anche per scopi analoghi al precedente strumento. Essendo la sintassi di questo linguaggio molto semplice, è ultimamente preferito a R.\\
+\begin{figure}[!h] 
+	\centering 
+	\includegraphics[width=0.9\columnwidth]{applicazioni_hadoop} 
+	\caption{Esempio di tool Hadoop (Cloudera Data Analyst Training)}
+\end{figure}
 
+\newpage
 %**************************************************************
 \section{Processi aziendali}
 
@@ -77,11 +90,8 @@ Per quanto riguarda i progetti relativi allo sviluppo di un nuovo prodotto a seg
 Nel caso il prodotto non sia precedentemente commissionato da un cliente, le attività che vengono seguite sono leggermente differenti. Il reparto di ricerca e sviluppo, il team \textit{big data} ed il reparto marketing collaborano alla ricerca di un prodotto appetibile per un eventuale cliente a cui verrà in genere presentato solamente un \textit{\gls{MVP}}: in questo modo è possibile presentare all'interessato un prototipo del prodotto con alcune funzionalità essenziali e significative, senza perdite inutili di tempo e risorse per l'azienda. Le attività di implementazione, rilascio e manutenzione che sono eseguite in seguito all'ottenimento di un cliente interessato sono invece pari a quelle dello \hyperref[commissione]{sviluppo su commissione}.
 \begin{figure}[!h] 
 	\centering 
-	\includegraphics[width=0.9\columnwidth]{MVP} 
+	\includegraphics[width=0.75\columnwidth]{MVP} 
 	\caption{Framework to build an MVP: Minimum Viable Product (goo.gl/s8LmEH)}
-	
-	
-	
 \end{figure}
 
 \subsection{Controllo di versione}
@@ -93,6 +103,12 @@ Alcuni dei vantaggi che ha spinto l’azienda ad utilizzare Git sono:
 	\item \textit{\textbf{Branch e Merge}}: permette con molta facilità la creazione di \textit{branch}, consentendo di creare quindi delle ramificazioni in cui sviluppare funzionalità non stabili, evitando di intaccare il ramo principale dove di norma risiede una versione stabile e testata del prodotto. Nel momento in cui si vogliono salvare le modifiche anche nel ramo principale, \gls{Git} permette di effettuare l’operazione di \textit{merge} del nuovo ramo testato con il ramo principale e considerare quindi le ultime modifiche come stabili;
 	\item \textit{\textbf{Fork e Pull request}}: queste due operazioni permettono di clonare una \textit{repository} (tramite \textit{fork}) e, successivamente, proporre l’inclusione delle modifiche apportate all’interno del clone nella \textit{repository} originale.
 \end{itemize}
+\begin{figure}[!h] 
+	\centering 
+	\includegraphics[width=0.7\columnwidth]{git} 
+	\caption{Funzionamento ed operazioni in Git (https://goo.gl/m1PVZy)}
+\end{figure}
+
 
 \subsection{Ambiente di sviluppo}
 Gli strumenti utilizzati per lo sviluppo, divisi in categorie, sono i seguenti:
@@ -106,5 +122,9 @@ Gli strumenti utilizzati per lo sviluppo, divisi in categorie, sono i seguenti:
 \section{Propensione dell'azienda per l'innovazione}
 L’azienda è alla continua ricerca di nuove tecnologie e prodotti innovativi che possano soddisfare sempre più le esigenze del cliente. Nel primo caso l’azienda cerca di cogliere il meglio delle nuove tecnologie per poterne trarre il maggior beneficio possibile attraverso progetti sperimentali e, per la prima volta quest’anno, stage universitari. Essendo l’innovazione un importante fattore di crescita, IT Euro Consulting coltiva questo aspetto cercando personale che abbia attitudine al cambiamento e contemporaneamente esprima le proprie soluzioni ai problemi incontrati dando libero sfogo alla propria creatività. Nel secondo caso, invece, l’azienda si prefigge l’obiettivo di creare nuovi prodotti al passo con le esigenze di potenziali clienti, utilizzando le ultime tecnologie disponibili.\\
 Un'ulteriore prova della propensione all'innovazione dell'azienda è la presenza di un team specifico ed in continua espansione per il segmento \textit{big data}, cosa usuale all'estero ma ben più rara in Italia in aziende di medie dimensioni, nelle quali l'importanza dei dati e della potenzialità che essi possiedono non è ancora entrata pienamente nell'ideale di business delle aziende.
-
+\begin{figure}[!h] 
+	\centering 
+	\includegraphics[width=0.6\columnwidth]{Big_Data} 
+	\caption{Attività dell'azienda in ambito big data (https://goo.gl/tyLXjo)}
+\end{figure}
 %**************************************************************
