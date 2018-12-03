@@ -114,16 +114,62 @@ In primo luogo l'azienda richiedeva allo stagista uno studio teorico sull'archit
 \\
 Il secondo obiettivo era lo studio dei tool principali che il team \textit{big data} utilizza per l'analisi ed il \textit{processing} dei dati, ovvero Hive, Impala, Spark. Oltre a questi tool di cui si è già data un breve commento, l'azienda richiedeva lo studio di:
 \begin{itemize}
-	\item \textbf{Hue}\footcite{http://gethue.com/}: un'applicazione che offre un'interfaccia e semplifica alcune operazioni, come le \textit{query} su Hadoop, di cui è utile la conoscenza di base ma scarsamente utilizzato in quanto risulta relativamente complesso per utilizzi semplici;
-	\item \textbf{Cloudera Manager}\footcite{https://www.cloudera.com/products/product-components/cloudera-manager.html}:
+	\item \textbf{Hue}\footcite{http://gethue.com/}: è un'applicazione che offre un'interfaccia e semplifica alcune operazioni, come le \textit{query} su Hadoop, di cui è utile la conoscenza di base ma scarsamente utilizzato in quanto risulta relativamente complesso per utilizzi semplici; \\\\
+	\item \textbf{Cloudera Manager}\footcite{https://www.cloudera.com/products/product-components/cloudera-manager.html}: è una web app per la gestione dei servizi e dei tool di Hadoop. Permette di tenere sotto controllo il cluster, quindi le risorse disponibili e gli utenti collegati, e permette di gestire e visualizzare le attività dei tool attualmente in esecuzione e passati. È utilizzato principalmente dai \textit{system administrators} ma si rivela utile anche per il team \textit{big data} per un'analisi veloce del funzionamento \textit{real time} del sistema.
 \end{itemize} 
 \begin{figure}[!h] 
 	\centering 
 	\includegraphics[width=1\columnwidth]{cloudera-manager}
 	\caption{Interfaccia di Cloudera Management}
 \end{figure}
-
+Al termine dello studio di questi tool era richiesta lo comprensione e la successiva analisi del dataset oggetto del progetto, che verrà trattato in dettaglio nel capitolo successivo.
 \subsection{Realizzazione di una web app per la presentazione dei risultati}
+Dopo aver ottenuto tutti i dati di interesse, l'azienda richiedeva lo sviluppo di una \gls{web app} per la presentazione dei risultati in maniera più comprensibile ed appetibile rispetto a tabelle CSV grezze. Grazie all'utilizzo di grafici, anche semplici, è infatti possibile notare alcune caratteristiche del dataset che potrebbero rivelarsi utili ad una successiva analisi per la creazione del modello statistico.
 %**************************************************************
 \section{Vincoli}
+\subsection{Vincoli metodologici}
+Per lo svolgimento dell'attività di stage, è stato deciso in comune accordo con il tutor che dovesse essere svolto presso la sede dell'azienda. Questo è stato concordato con lo scopo di favorire il dialogo tra me ed il tutor aziendale e di avere la possibilità di confrontarmi direttamente con programmatori ed analisti più esperti in caso di problematiche durante lo svolgimento delle attività di progettazione, analisi e sviluppo software.
+Oltre a ciò, l’azienda richiedeva che, al termine di ogni settimana lavorativa, venisse compilato un rapporto di quelle che erano state le attività svolte durante tale settimana. Inoltre, nel corso del primo periodo, prettamente di formazione, l'azienda richiedeva un breve resoconto di quanto compreso, cosicchè potessi essere più cosciente delle tecnologie che avrei utilizzato in seguito e, in caso di dubbi, questi venissero risolti da personale esperto.
+In seguito ad ogni rapporto, ed in particolare agli avanzamenti ed ai problemi incontrati descritti in esso, sarebbe stato deciso cosa doveva essere svolto la settimana successiva, così da poter adattare al meglio il progetto al periodo di stage rimanente.\\
+Al termine di tutte le attività, l'azienda richiedeva inoltre una breve presentazione di quanto svolto ad alcuni membri del management. Tale presentazione, esposta in forma verbale, sarebbe servita allo studente per illustrare ciò che aveva concluso tramite il suo progetto, elencando pro e contro della soluzione da lui trovata.
+\subsection{Vincoli temporali}
+Lo svolgimento dello stage prevedeva una durata di 320 ore complessive di lavoro. Queste ore sono state distribuite in modo uniforme in otto settimane lavorative da 40 ore ciascuna. L'orario accordato tra me e il tutor aziendale è stato dal Lunedì al Venerdì dalle 09:00 alle 18:00 con un'ora di pausa pranzo. Prima dell'inizio dello stage il tutor ha redatto nel Piano di Lavoro una scansione temporale delle attività su base settimanale.
+In alcune occasioni, il lavoro assegnato è stato portato al termine in anticipo, per cui si è scelto di effettuare alcuni approfondimenti su argomenti che mi interessavano maggiormente, tramite lo studio autonomo ma con la possibilità di richiedere chiarimenti al personale più esperto che mi seguiva.
+La suddivisione del lavoro su base settimanale è stata così ripartita:
+\begin{itemize}
+	\item \textbf{Prima settimana}: 
+		\subitem - consolidamento utilizzo sistema Unix;
+		\subitem - comprensione mondo \textit{big data};
+		\subitem - Apache Hadoop Architecture e HDFS.
+	\item \textbf{Seconda settimana}:
+		\subitem - approfondimenti mondo \textit{big data};
+		\subitem - apprendimento comandi HDFS;
+		\subitem - comprensione tools Cloudera.
+	\item \textbf{Terza settimana}:
+		\subitem - approfondimento tools Cloudera;
+		\subitem - studio ed esercitazione di Cloudera Impala ed Apache Hive.
+	\item \textbf{Quarta settimana}:
+		\subitem - studio ed esercitazione di Apache Spark;
+		\subitem - comprensione di Cloudera Manager.
+	\item \textbf{Quinta e sesta settimana}:
+	 	\subitem - ripasso Java con attenzione all'ambiente Java EE;
+	 	\subitem - studio del linguaggio scelto per il \textit{front-end}.
+	\item \textbf{Settima e ottava settimana}:
+		\subitem - applicazione delle principali tecnologie apprese al progetto.
+\end{itemize}
+Da questa suddivisione deriva il seguente \gls{Diagramma di Gantt}.
+\begin{figure}[!h] 
+	\centering 
+	\includegraphics[width=1\columnwidth]{gantt}
+	\caption{Diagramma di Gantt dello stage}
+\end{figure}
 
+\subsection{Vincoli tecnologici}
+Ad inizio stage è stato concordato un unico vincolo: utilizzare Java EE per la parte di \textit{back-end} del prodotto. Per la parte di \textit{front-end} era invece suggerito l'utilizzo di Angular, in quanto già assiduamente testato ed utilizzato per altri progetti, ma non c'era nessun tipo di vincolo, infatti la scelta finale dipendeva dalle preferenze ed esperienze del tirocinante. Un'alternativa da me proposta è stata l'utilizzo delle librerie React\footcite{https://reactjs.org/} e Redux\footcite{https://redux.js.org/} in quanto già in parte conosciute ed utilizzate dal sottoscritto. La scelta finale però è stata, come proposto dall'azienda, Angular, in  quanto mi interessava come tecnologia e, vista la natura esplorativa di nuove tecnologie e strumenti dello stage, è stata considerata la scelta migliore per il mio accrescimento culturale. \\
+Per quanto riguarda la parte di \textit{big data}, mi sono affidato completamente al mio tutor aziendale, in quanto non avevo alcuna esperienza in quel campo e quindi non avrei potuto scegliere cosa fosse la scelta migliore per me. Oltre a ciò, gli strumenti utilizzati assieme ad Hadoop sono ormai consolidati e non c'è una grande varietà, quindi la scelta proposta dal personale aziendale si è rivelata obbligatoria. \\
+Oltre a ciò, mi è stata data la possibilità di utilizzare \gls{Git} per il versionamento del codice, che ho ben apprezzato ed utilizzato.
+\begin{figure}[!h] 
+	\centering 
+	\includegraphics[width=0.5\columnwidth]{tecnologie}
+	\caption{Logo delle principali tecnologie per lo sviluppo software considerate (da sinistra a destra, rispettivamente: Java EE, Angular, React, Redux)}
+\end{figure}
