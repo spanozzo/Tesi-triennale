@@ -2,26 +2,47 @@
 % !TEX TS-program = pdflatex
 % !TEX root = ../tesi.tex
 
+% (3) che risponde alle domande “cosa” e “come”, nel quale racconterai gli elementi essenziali del tuo stage,
+% vedendolo come un mini‐progetto a se stante. In questo capitolo illustrerai: (a) il metodo di lavoro con il quale hai
+% affrontato lo stage; (b) i problemi progettuali, tecnologici e applicativi che hai affrontati; (c) i risultati che hai
+% raggiunto, sia sul piano qualitativo che su quello quantitativo. Il punto (a) comprende la pianificazione, le interazioni
+% con il tutor aziendale, le revisioni di progresso, l’uso di diagrammi, di tecniche di analisi e tracciamento dei requisiti,
+% l’uso di strumenti di verifica, ecc. Il punto (b), che tratterai nella sequenza di attività che hai svolto (analisi,
+% progettazione, programmazione, verifica e validazione), metterà in luce gli aspetti principali, secondo una visione ad
+% alto livello. Entrerai in dettaglio solo per aspetti che consideri particolarmente meritevoli di attenzione dal punto di
+% vista delle conoscenze acquisite o necessarie. Il punto (c) tratta di copertura di requisiti, di copertura di testing, e di
+% quantità di prodotti (linee di codice, numero di documenti, ecc.).
+
+
 %**************************************************************
 \chapter{Resoconto dello stage}
 \label{cap:resoconto-stage}
 %**************************************************************
 
 \section{Descrizione del progetto}
+Parte del progetto che l'azienda mi aveva proposto era già stato sviluppato dal team \textit{big data} qualche anno fa.
+Il \textit{dataset} da elaborare ed analizzare era infatti parte di un concorso a cui l'azienda aveva partecipato: questa competizione era stata indetta da BNP Paribas e pubblicata su Keggle\footcite{https://www.kaggle.com/}, nota piattaforma in cui è possibile esporre i propri progetti, visualizzare quelli altrui e proporre sfide in ambito \textit{data science}.
+\subsection{Il problema}
+In particolare, il problema che veniva proposto, "BNP Paribas Cardif Claims Management"\footcite{https://www.kaggle.com/c/bnp-paribas-cardif-claims-management}, consisteva nella possibilità di classificare le pratiche assicurative in modo che queste possano essere risolte nel minor tempo possibile. A tal proposito, si chiedeva di prevedere la categoria di un sinistro sulla base delle caratteristiche disponibili nelle prime fasi del processo assicurativo; le due categorie di richieste di indennizzo, su cui basare la classificazione, corrispondevano quindi a:
+\begin{itemize}
+	\item Quelle per le quali l'approvazione poteva essere accelerata, con conseguente maggiore rapidità nel rimborso;
+	\item Quelle per le quali erano richieste informazioni supplementari prima dell'approvazione e del rimborso.
+\end{itemize}
+\clearpage
+\begin{figure}[!h] 
+	\centering 
+	\includegraphics[width=0.7\columnwidth]{kaggle-project}
+	\caption{Illustrazione del problema proposto ("Fonte:" \href{https://goo.gl/AW22at}{https://goo.gl/AW22at})}
+\end{figure}
+Nella sezione \hyperref[dataset]{Analisi del dataset di interesse} verrà trattata la struttura del \textit{dataset} più nel dettaglio.
+%**************************************************************
+
+\section{Studio di Hadoop e dei suoi tools}
+Prima di cominciare a lavorare sul \textit{dataset} del progetto, avevo la necessità di studiare la teoria,
+%**************************************************************
+
+\section{Analisi del dataset di interesse} \label{dataset}
 
 %**************************************************************
-\section{Analisi preventiva dei rischi}
 
-Durante la fase di analisi iniziale sono stati individuati alcuni possibili rischi a cui si poteva andare incontro.
-Si è quindi proceduto ad elaborare delle possibili soluzioni per far fronte a tali rischi.\\
-
-%**************************************************************
-\section{Presentazione del progetto}
-
-%**************************************************************
-
-\section{Requisiti e obiettivi}
-
-
-%**************************************************************
-\section{Pianificazione}
+\section{Progettazione e sviluppo della web app}
