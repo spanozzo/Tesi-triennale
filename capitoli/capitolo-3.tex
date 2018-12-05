@@ -24,7 +24,7 @@ Parte del progetto che l'azienda mi ha proposto era già stato sviluppato dal te
 Il \textit{dataset} da elaborare ed analizzare è infatti parte di un concorso a cui l'azienda aveva partecipato: questa competizione è stata indetta da BNP Paribas Cardif, il polo assicurativo del Gruppo BNP Paribas, e pubblicata su Keggle\footcite{https://www.kaggle.com/}, nota piattaforma in cui è possibile esporre i propri progetti, visualizzare quelli altrui e proporre sfide in ambito \textit{data science} e \textit{machine learning}.
 
 \subsection{Il problema}
-In particolare, il problema che proposto, "BNP Paribas Cardif Claims Management"\footcite{https://www.kaggle.com/c/bnp-paribas-cardif-claims-management}, consiste nella possibilità di classificare le pratiche assicurative in modo che queste possano essere risolte nel minor tempo possibile. A tal proposito, si chiede di prevedere la categoria di un sinistro sulla base delle caratteristiche disponibili nelle prime fasi del processo assicurativo; le due categorie di richieste di indennizzo, su cui basare la classificazione, corrispondono quindi a:
+In particolare, il problema proposto, "BNP Paribas Cardif Claims Management"\footcite{https://www.kaggle.com/c/bnp-paribas-cardif-claims-management}, consiste nella possibilità di classificare le pratiche assicurative in modo che queste possano essere risolte nel minor tempo possibile. A tal proposito, si chiede di prevedere la categoria di un sinistro sulla base delle caratteristiche disponibili nelle prime fasi del processo assicurativo; le due categorie di richieste di indennizzo, su cui basare la classificazione, corrispondono quindi a:
 \begin{itemize}
 	\item Quelle per le quali l'approvazione poteva essere accelerata, con conseguente maggiore rapidità nel rimborso e minori pratiche da gestire;
 	\item Quelle per le quali erano richieste informazioni supplementari prima dell'approvazione e del rimborso.
@@ -40,11 +40,52 @@ Nella sezione \hyperref[dataset]{Analisi del dataset di interesse} verrà tratta
 %**************************************************************
 
 \section{Studio di Hadoop e dei suoi tools}
-L'argomento 
 Prima di cominciare a lavorare sul \textit{dataset} del progetto, era necessario studiare la teoria, in quanto la prima parte dello stage considerava argomenti a me quasi totalmente sconosciuti.
-Autonomamente, ma sempre supervisionato dal tutor aziendale, disponibile a risolvere ogni mio dubbio, ho studiato il materiale necessario per poter eseguire la parte pratica con la consapevolezza delle mie azioni. Oltre a ciò, nel corso della giornata lavorativa, il tutor mi sottoponeva delle esercitazioni da svolgere per consolidare i concetti appresi e risolvere tempestivamente miei eventuali dubbi prima di procedere con gli argomenti successivi.
-Essendo \gls{HDFS} e molti dei tool Hadoop eseguibili principalmente tramite \gls{bash}, come prima cosa mi è stato assegnato lo studio autonomo di alcuni paragrafi, selezionati dal tutor, del libro "Learning the bash Shell"\footcite{http://shop.oreilly.com/product/9780596009656.do} per ottenere le basi che mi permettessero di utilizzare i comandi che mi sarebbero serviti in seguito per l'utilizzo dei tool Hadoop.\\
-Dopo aver assorbito i concetti, già in parte di mia conoscenza, il tutor mi ha esposto la struttura del \gls{cluster} Hadoop in cui risiedevano i dati e venivano eseguiti i \textit{task}.
+Autonomamente, ma sempre supervisionato dal tutor aziendale, disponibile a risolvere ogni mio dubbio, ho studiato il materiale necessario per poter eseguire poi al meglio la parte pratica. Oltre a ciò, nel corso della giornata lavorativa, il tutor mi sottoponeva delle esercitazioni da svolgere per consolidare i concetti appresi e risolvere tempestivamente miei eventuali dubbi prima di procedere con gli argomenti successivi.
+Essendo \gls{HDFS} e molti dei tool Hadoop eseguibili principalmente tramite \gls{Bash}, come prima cosa mi è stato assegnato lo studio autonomo di alcuni capitoli, selezionati dal tutor, del libro "Learning the bash Shell"\footcite{http://shop.oreilly.com/product/9780596009656.do} per ottenere le basi che mi permettessero di utilizzare i comandi che mi sarebbero serviti in seguito per l'utilizzo dei tool Hadoop.\\
+Dopo aver assorbito i concetti, già in parte di mia conoscenza, il tutor mi ha esposto la struttura del \gls{cluster} Hadoop in cui risiedevano i dati e venivano eseguiti i \textit{task}. 
+\subsection{Apache Hadoop}
+Ogni giorno si generano petabytes di dati che, se processati ed analizzati a dovere possono offrire informazioni con un alto valore strategico per un'azienda. Hadoop nasce dall'esigenza di dover gestire e processare questi dati in modo veloce, tramite una soluzione che sia il più possibile economica e scalabile orizzontalmente: aggiungendo nuovi nodi al cluster, la capacità e le performance di questo infatti aumentano proporzionalmente. Per aumentare ulteriormente le prestazioni e la scalabilità del sistema, Hadoop cerca di elaborare i dati sullo stesso nodo in cui questi risiedono: questo permette di ridurre al minimo la \textit{cross-communication} fra i nodi e la necessità di copiare grandi quantità di dati fra questi, eliminando il rischio di \textit{bottleneck} dovuto dalla velocità di trasmissione dei dati. Per gestire il sistema, Hadoop si basa su:
+\begin{itemize}
+	\item \gls{HDFS}: per la gestione dei dati persistenti;
+	\item YARN: per lo \textit{scheduling} dei processi (\textit{jobs}) e la gestione delle risorse.
+\end{itemize}
+\begin{figure}[!h]
+	\centering 
+	\includegraphics[width=0.7\columnwidth]{hadoop_tools}
+	\caption{Attori principali del sistema Hadoop (Fonte: Cloudera - Developer Training for Spark and Hadoop)}
+\end{figure}
+\subsubsection{HDFS}
+Hadoop Distributed File System (HDFS) è un \textit{file system} scritto in Java, basato su Google File System\footcite{https://ai.google/research/pubs/pub51}. \\
+Offre performance migliori con un modesto numero di file di grandi dimensioni piuttosto che miliardi di dati frammentati, per questo motivo, anche le operazioni di \textit{read}, sono ottimizzate per la lettura in \textit{streaming} piuttosto che quelle casuali. Inoltre, i file sono tutti \textit{write-once} e quindi non modificabili una volta memorizzati.
+In scrittura, infatti, i dati sono suddivisi in blocchi di dimensione fissata e distribuiti tra i nodi una volta caricati in modo ridondante per prevenire la perdita di informazioni nel caso un nodo non fosse più disponibile in seguito.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{data_split}
+	\caption{Divisione di un file in blocchi su HDFS (Fonte: Cloudera - Administrator Training for Apache Hadoop)}
+\end{figure}
+\clearpage
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{data_save}
+	\caption{Caricamento dei blocchi nei nodi (Fonte: Cloudera - Administrator Training for Apache Hadoop)}
+\end{figure}
+Hadoop ha un'architettura di tipo \textit{master-slave}, ovvero in cui il processo \textit{master} ha il controllo su quello \textit{slave}. I nodi, quindi, possono essere di tre tipi:
+\begin{itemize}
+	\item \textbf{NameNode}: costituisce il \textit{master \gls{daemon}}, quindi gestisce tutti i \textit{metadata}, le informazioni riguardo l'\textit{ownership} e i permessi ad una risorsa, i nomi dei blocchi e la loro locazione;
+	\item \textbf{DataNode}: costituisce gli \textit{slave \gls{daemon}}, quindi i nodi che contengono i blocchi di dati;
+	\item \textbf{Secondary NameNode}: ha il ruolo di \textit{backup} del NameNode e quindi costituisce il \textit{master \gls{daemon}} di riserva. 
+\end{itemize}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{hadoop-nodes}
+	\caption{Rappresentazione dei nodi in Hadoop (Fonte: Cloudera - Administrator Training for Apache Hadoop)}
+\end{figure}
+%La struttura del file system è basata su quella del sistema operativo sottostante e può essere ext3, ext4 o xfs 
+\subsubsection{YARN}
+
+
+\subsection{Apache Hive, Apache Spark e Cloudera Impala}
 
 %**************************************************************
 \section{Analisi del dataset di interesse} \label{dataset}
