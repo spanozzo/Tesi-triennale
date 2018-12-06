@@ -35,7 +35,7 @@ In particolare, il problema proposto, "BNP Paribas Cardif Claims Management"\foo
 	\includegraphics[width=0.7\columnwidth]{kaggle-project}
 	\caption{Illustrazione del problema proposto (Fonte: \href{https://goo.gl/AW22at}{https://goo.gl/AW22at})}
 \end{figure}
-Nella sezione \hyperref[dataset]{Analisi del dataset di interesse} verrà trattata la struttura del \textit{dataset} più nel dettaglio.
+Nella sezione \hyperref[dataset]{Elaborazione del dataset di interesse} verrà trattata la struttura del \textit{dataset} più nel dettaglio.
 
 %**************************************************************
 
@@ -182,17 +182,44 @@ La maggior parte delle operazioni vengono eseguite tramite l'utilizzo di \textbf
 	\caption{Esempio di operazioni in Spark}
 \end{figure}
 L'esecuzione delle attività negli RDD è \textit{lazy}, ovvero la \textit{pipeline} di operazioni non viene eseguita finché non incontra un'operazione terminale data da una action. Inoltre, durante l'esecuzione della \textit{pipeline} delle operazioni, non viene salvato alcun risultato intermedio finché non viene eseguita un'operazione terminale.\\\\
-
 Un altro tipo di struttura dati, oltre ad RDD, supportato da Spark sono i \textbf{DataFrame}: questi sono \textit{dataset} organizzati con uno schema e quindi con colonne nominali. Come risultato si ottengono delle tabelle simili a quelle di un database relazionale ma con ulteriori ottimizzazioni per rendere le operazioni su di questi molto più veloci. Per eseguire queste operazioni, Spark mette a disposizione Spark SQL, un modulo per il \textit{processing} dei dati strutturato, basato sul linguaggio SQL.
 %**************************************************************
 \newpage
-\section{Analisi del dataset di interesse} \label{dataset}
-Il dataset\footcite{https://www.kaggle.com/c/bnp-paribas-cardif-claims-management/data} oggetto del concorso è composto da due parti:
+\section{Elaborazione del dataset di interesse} \label{dataset}
+Il dataset oggetto del concorso\footcite{https://www.kaggle.com/c/bnp-paribas-cardif-claims-management/data} è composto da due parti:
 \begin{itemize}
 	\item train.csv: che contiene i dati su cui effettuare le analisi e su cui basare il modello statistico;
 	\item test.csv: che contiene i dati su cui verranno testati i modelli stimati dai partecipanti, ed in base a cui si dichiarerà il vincitore del concorso.
 \end{itemize}
-Il \textit{dataset} è anonimo, in quanto contiene dati sensibili provenienti da clienti di BNP Paribas Cardif, e contiene dati sia di tipo categoriale che numerico.  È composto da 132 colonne e 114'321 righe a cui si aggiunge una colonna, 'target' per il \textit{dataset} train, su cui si deve stimare il modello. Oltre alla colonna 'ID', che identifica in modo univoco l'ennupla, non si ha alcun altro dato sui valori. 
+Il \textit{dataset} è anonimo, in quanto contiene dati sensibili provenienti da clienti di BNP Paribas Cardif, e contiene dati sia di tipo categoriale che numerico.  È composto da 132 colonne e 114'321 righe a cui si aggiunge una colonna, 'target', per il \textit{dataset} train, che contiene il risultato su cui stimare il modello. Oltre alla colonna 'ID', che identifica in modo univoco l'ennupla, non si ha alcun altra informazione sui valori.\\\\
+Per effettuare le operazioni sul \textit{dataset}, che al momento del mio utilizzo era già presente nel \gls{cluster} dell'azienda, è stato utilizzato solamente Spark. Nello specifico, ho utilizzato il linguaggio Scala per scrivere la \textit{pipeline} di operazioni da eseguire sul \gls{cluster}. È stato possibile utilizzare solamente Spark e non Hive o Impala in quanto, utilizzando i DataFrame come spiegato nella sezione precedente, è possibile utilizzare Spark SQL per effettuare le \textit{query} sui dati in modo semplice con un linguaggio simile ad SQL.
+Questo mi ha permesso di concentrarmi solamente sulla scrittura della pipeline di operazioni in Scala, da cui poi si è ricavato il \gls{JAR} eseguito sul \gls{cluster}.
+Le operazioni di elaborazione del \textit{dataset} richieste sono:
+\begin{enumerate}
+	\item Identificazione del tipo (intero, double o stringa) della colonna e calcolo di statistiche di interesse sui valori contenuti;
+	\item Calcolo della matrice di correlazione fra le varie colonne del \textit{dataset}.
+\end{enumerate}
+
+\subsection{Identificazione tipo e calcolo dati statistici}
+Per quanto riguarda il primo punto, identificare il tipo delle colonne, si sono preventivamente esclusi i valori vuoti o nulli.
+In seguito, si sono valutati i valori rimanenti: le colonne contenenti dati di tipo stringa sono state considerate come categoriali, mentre le rimanenti come numeriche. 
+Dopo aver identificato le colonne, in base al tipo di queste, si sono valutati i valori e calcolate le statistiche di interesse:
+\begin{itemize}
+	\item Per le colonne di tipo categoriale, il progetto richiedeva l'identificazione dei valori univoci ed il calcolo delle relative occorrenze;
+	\item Per le colonne di tipo numerico, il progetto richiedeva il valore minimo, massimo, medio e la deviazione standard dei valori presenti.
+\end{itemize}
+Per entrambi i tipi, inoltre, il progetto richiedeva il conteggio delle righe vuote per ogni colonna, così da identificare eventuali variabili che, se non significative, sarebbero state scartate durante l'analisi.
+\clearpage
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{stats}
+	\caption{Esempio del CSV contenente le statistiche delle variabili ottenute}
+\end{figure}
+
+\subsection{Calcolo della matrice di correlazione}
+La matrice di correlazione è un indice che esprime un'eventuale relazione di linearità tra le variabili su cui è calcolato. Si rivela dunque molto utile per la stima del modello statistico. 
+
+
 %**************************************************************
 
 \section{Progettazione e sviluppo della web app}
