@@ -72,16 +72,43 @@ In scrittura, infatti, i dati sono suddivisi in blocchi di dimensione fissata e 
 \end{figure}
 Hadoop ha un'architettura di tipo \textit{master-slave}, ovvero in cui il processo \textit{master} ha il controllo su quello \textit{slave}. I nodi, quindi, possono essere di tre tipi:
 \begin{itemize}
-	\item \textbf{NameNode}: costituisce il \textit{master \gls{daemon}}, quindi gestisce tutti i \textit{metadata}, le informazioni riguardo l'\textit{ownership} e i permessi ad una risorsa, i nomi dei blocchi e la loro locazione;
-	\item \textbf{DataNode}: costituisce gli \textit{slave \gls{daemon}}, quindi i nodi che contengono i blocchi di dati;
-	\item \textbf{Secondary NameNode}: ha il ruolo di \textit{backup} del NameNode e quindi costituisce il \textit{master \gls{daemon}} di riserva. 
+	\item \textbf{NameNode}: costituisce il \textit{master \gls{daemon}}, quindi gestisce tutti i \textit{metadati}, le informazioni riguardo l'\textit{ownership} e i permessi ad una risorsa, i nomi dei blocchi e la loro locazione. Essendo unico e mantenendo la struttura del \textit{file system}, rappresenta un \gls{single point of failure} in \gls{HDFS};
+	\item \textbf{DataNode}: costituisce gli \textit{slave \gls{daemon}}, quindi i nodi che contengono i blocchi di dati veri e propri;
+	\item \textbf{Secondary NameNode}: esegue elaborazioni in supporto al NameNode. Non è un nodo di backup ma la funzione principale è quella di memorizzare una copia del file \textit{FsImage} e di modificare il file di log. \textit{FsImage} contiene un'istantanea dei metadati del \textit{file system} HDFS in un certo momento e \textit{EditLog} è il log delle transazioni che contiene record per ogni modifica dei metadati del \textit{file system}. In questo modo, in qualunque momento, è possibile ricostruire il NameNode a partire da \textit{FsImage} e applicando il record delle transazioni \textit{EditLog}.
 \end{itemize}
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.8\columnwidth]{hadoop-nodes}
 	\caption{Rappresentazione dei nodi in Hadoop (Fonte: Cloudera - Administrator Training for Apache Hadoop)}
 \end{figure}
-%La struttura del file system è basata su quella del sistema operativo sottostante e può essere ext3, ext4 o xfs 
+Nei seguenti esempi sono rappresentati semplici operazioni di lettura e scrittura sui nodi HDFS.
+La procedura di scrittura di un blocco avviene nel seguente modo:
+\begin{enumerate}
+	\item Il client si connette al NameNode;
+	\item NameNode registra i \textit{metadati} del file e ritorna il nome del blocco e la lista dei DataNodes al client;
+	\item Il client si connette al primo DataNode e comincia ad inviare i dati;
+	\item A sua volta, il primo DataNode si connette al secondo e invia a sua volta i dati;
+	\item Allo stesso modo, il secondo DataNode si connette al terzo;
+	\item Ad ogni blocco scritto, al client viene ritornato un \textit{ack packets} dalla \textit{pipeline} di nodi;
+	\item Una volta ricevuti tutti gli \textit{ack packets}, il client informa il NameNode del completamento della scrittura.
+\end{enumerate} 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.65\columnwidth]{hdfs_write}
+	\caption{Esempio di scrittura di un file in HDFS (Fonte: Cloudera - Administrator Training for Apache Hadoop)}
+\end{figure}
+La procedura di lettura di dati avviene nel seguente modo:
+\begin{enumerate}
+	\item Il client si connette al NameNode;
+	\item NameNode ritorna il nome e la locazione dei blocchi del file;
+	\item Il client si connette ai DataNodes comunicati e legge i blocchi.
+\end{enumerate}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.65\columnwidth]{hdfs_read}
+	\caption{Esempio di scrittura di un file in HDFS (Fonte: Cloudera - Administrator Training for Apache Hadoop)}
+\end{figure}
+
 \subsubsection{YARN}
 
 
