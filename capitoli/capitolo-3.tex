@@ -106,13 +106,47 @@ La procedura di lettura di dati avviene nel seguente modo:
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.65\columnwidth]{hdfs_read}
-	\caption{Esempio di scrittura di un file in HDFS (Fonte: Cloudera - Administrator Training for Apache Hadoop)}
+	\caption{Esempio di lettura di un file in HDFS (Fonte: Cloudera - Administrator Training for Apache Hadoop)}
 \end{figure}
 
 \subsubsection{YARN}
-
-
+YARN (\textit{Yet Another Resource Negotiator}) è il manager delle risorse di Hadoop. I principali attori del sistema sono:
+\begin{itemize}
+	\item \textbf{ResourceManager}: uno per \gls{cluster}, e costituisce il \textit{master \gls{daemon}}; inizializza le applicazioni e ne pianifica l'utilizzo delle risorse sugli \textit{slave nodes}. È costituito da due componenti principali: uno \textbf{\textit{scheduler}} responsabile per l'allocazione delle risorse delle applicazioni al loro avvio ed un \textbf{\textit{application manager}} che gestisce le applicazioni già in esecuzione sul \textit{cluster};
+	\item \textbf{NodeManager}: uno per \textit{slave nodes} e costituisce lo \textit{slave \gls{daemon}}; avvia i processi delle applicazioni e gestisce le risorse sul singolo \textit{slave node};
+	\item \textbf{JobHistoryServer}: uno per \gls{cluster}, archivia i log ed i \textit{metadata} dei \textit{jobs} terminati;
+	\item \textbf{ApplicationManager}: uno per applicazione, negozia le risorse con il ResourceManager e lavora con il NodeManager; gestisce l'intera vita dell'applicazione, dalla sua inizializzazione al suo termine. 
+\end{itemize}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{yarn_architecture}
+	\caption{Struttura di un cluster che utilizza YARN (Fonte: Cloudera - Administrator Training for Apache Hadoop)}
+\end{figure}
+YARN, per avviare un'applicazione sul \gls{cluster}, si comporta nel modo seguente:
+\begin{enumerate}
+	\item Il client richiede di eseguire un \textit{job} al ResourceManager che inizializza un \textit{container}, ovvero un numero finito di risorse di un nodo, e avvia l'ApplicationManager sul NodeManager;
+	\item L'ApplicationManager richiede le risorse necessarie per eseguire tutti i \textit{tasks} al ResourceManager;
+	\item Il ResourceManager alloca nuovi \textit{containers} su altri nodi del \gls{cluster} e comunica all'ApplicationManager la loro locazione;
+	\item L'ApplicationManager esegue i \textit{tasks} nei \textit{containers} allocati precedentemente;
+	\item Una volta completato il \textit{job}, l'ApplicationManager segnala al ResourceManager la conclusione del processo.
+\end{enumerate} 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=1.2\columnwidth]{yarn_application}
+	\caption{Sequenza avvio applicazione di YARN}
+\end{figure}
+\newpage
 \subsection{Apache Hive, Apache Spark e Cloudera Impala}
+\subsubsection{Apache Hive}
+Originariamente sviluppato da Facebook per facilitare l'interrogazioni di \textit{dataset} su Hadoop, fornisce un metodo per effettuare \textit{query} in HDFS utilizzando un linguaggio simile ad SQL chiamato HiveQL. 
+Le \textit{query} sono poi convertite da Hive in \textit{jobs} che vengono eseguiti da YARN. A causa di questa conversione, i risultati di una \textit{query} sono lenti, infatti ottenere un risultato può richiedere anche minuti se non ore. Inoltre, come detto in precedenza, in HDFS non è possibile modificare i dati, e quindi le operazioni di UPDATE e DELETE, tipiche di SQL, non sono supportate.
+Hive interpreta tutti i file di una directory HDFS come contenuti di una tabella e salva le informazioni su come le righe e le colonne della tabella sono delimitate in una locazione, che può essere sulla macchina locale dell'utente o condivisa fra più utenti, chiamata \textbf{Hive Metastore}.
+Nel caso Hive Metastore sia condiviso, il client si connette ad un'altro attore, chiamato \textbf{Hive Metastore Service} utilizzando le \gls{api} di Apache Thrift\footcite{https://thrift.apache.org/}. A sua volta, questo si connette al Metastore attraverso le Java JDBC.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{hive-metastore}
+	\caption{Rappresentazione delle connessioni ad Hive Metastore (Fonte: Cloudera - Administrator Training for Apache Hadoop)}
+\end{figure}
 
 %**************************************************************
 \section{Analisi del dataset di interesse} \label{dataset}
