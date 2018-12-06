@@ -187,7 +187,12 @@ Un altro tipo di struttura dati, oltre ad RDD, supportato da Spark sono i \textb
 %**************************************************************
 \newpage
 \section{Analisi del dataset di interesse} \label{dataset}
-
+Il dataset\footcite{https://www.kaggle.com/c/bnp-paribas-cardif-claims-management/data} oggetto del concorso è composto da due parti:
+\begin{itemize}
+	\item train.csv: che contiene i dati su cui effettuare le analisi e su cui basare il modello statistico;
+	\item test.csv: che contiene i dati su cui verranno testati i modelli stimati dai partecipanti, ed in base a cui si dichiarerà il vincitore del concorso.
+\end{itemize}
+Il \textit{dataset} è anonimo, in quanto contiene dati sensibili provenienti da clienti di BNP Paribas Cardif, e contiene dati sia di tipo categoriale che numerico.  È composto da 132 colonne e 114'321 righe a cui si aggiunge una colonna, 'target' per il \textit{dataset} train, su cui si deve stimare il modello. Oltre alla colonna 'ID', che identifica in modo univoco l'ennupla, non si ha alcun altro dato sui valori. 
 %**************************************************************
 
 \section{Progettazione e sviluppo della web app}
