@@ -188,10 +188,10 @@ Un altro tipo di struttura dati, oltre ad RDD, supportato da Spark sono i \textb
 \section{Elaborazione del dataset di interesse} \label{dataset}
 Il dataset oggetto del concorso\footcite{https://www.kaggle.com/c/bnp-paribas-cardif-claims-management/data} è composto da due parti:
 \begin{itemize}
-	\item train.csv: che contiene i dati su cui effettuare le analisi e su cui basare il modello statistico;
-	\item test.csv: che contiene i dati su cui verranno testati i modelli stimati dai partecipanti, ed in base a cui si dichiarerà il vincitore del concorso.
+	\item "train.csv": che contiene i dati su cui effettuare le analisi e su cui basare il modello statistico;
+	\item "test.csv": che contiene i dati su cui verranno testati i modelli stimati dai partecipanti, ed in base a cui si dichiarerà il vincitore del concorso.
 \end{itemize}
-Il \textit{dataset} è anonimo, in quanto contiene dati sensibili provenienti da clienti di BNP Paribas Cardif, e contiene dati sia di tipo categoriale che numerico.  È composto da 132 colonne e 114'321 righe a cui si aggiunge una colonna, 'target', per il \textit{dataset} train, che contiene il risultato su cui stimare il modello. Oltre alla colonna 'ID', che identifica in modo univoco l'ennupla, non si ha alcun altra informazione sui valori.\\\\
+Il \textit{dataset} è anonimo, in quanto contiene dati sensibili provenienti da clienti di BNP Paribas Cardif, e contiene dati sia di tipo categoriale che numerico.  È composto da 132 colonne e 114'321 righe a cui si aggiunge una colonna, "target", per il \textit{dataset} train, che contiene il risultato su cui stimare il modello. Oltre alla colonna "ID", che identifica in modo univoco l'ennupla, non si ha alcun altra informazione sui valori.\\\\
 Per effettuare le operazioni sul \textit{dataset}, che al momento del mio utilizzo era già presente nel \gls{cluster} dell'azienda, è stato utilizzato solamente Spark. Nello specifico, ho utilizzato il linguaggio Scala per scrivere la \textit{pipeline} di operazioni da eseguire sul \gls{cluster}. È stato possibile utilizzare solamente Spark e non Hive o Impala in quanto, utilizzando i DataFrame come spiegato nella sezione precedente, è possibile utilizzare Spark SQL per effettuare le \textit{query} sui dati in modo semplice con un linguaggio simile ad SQL.
 Questo mi ha permesso di concentrarmi solamente sulla scrittura della pipeline di operazioni in Scala, da cui poi si è ricavato il \gls{JAR} eseguito sul \gls{cluster}.
 Le operazioni di elaborazione del \textit{dataset} richieste sono:
@@ -199,6 +199,7 @@ Le operazioni di elaborazione del \textit{dataset} richieste sono:
 	\item Identificazione del tipo (intero, double o stringa) della colonna e calcolo di statistiche di interesse sui valori contenuti;
 	\item Calcolo della matrice di correlazione fra le varie colonne del \textit{dataset}.
 \end{enumerate}
+Tutte le operazioni sui dati sono state effettuate sul \textit{dataset} "train.csv" in quanto soggetto per la stima del modello.
 
 \subsection{Identificazione tipo e calcolo dati statistici}
 Per quanto riguarda il primo punto, identificare il tipo delle colonne, si sono preventivamente esclusi i valori vuoti o nulli.
@@ -217,9 +218,18 @@ Per entrambi i tipi, inoltre, il progetto richiedeva il conteggio delle righe vu
 \end{figure}
 
 \subsection{Calcolo della matrice di correlazione}
-La matrice di correlazione è un indice che esprime un'eventuale relazione di linearità tra le variabili su cui è calcolato. Si rivela dunque molto utile per la stima del modello statistico. 
+La matrice di correlazione è un indice che esprime un'eventuale relazione di linearità tra le variabili su cui è calcolato. Si rivela dunque molto utile per la stima del modello statistico, in quanto si dimostra un'analisi preliminare valida per una prima stima delle variabili significative per il modello.\\
+Nel caso particolare di questo progetto, ho costruito la matrice di correlazione utilizzando tutte e 133 le variabili. La colonna le cui correlazioni sono più interessanti è ovviamente la variabile "target", ma anche le correlazioni tra le altre colonne sono di interesse per capire se ci sono interazioni interessanti tra loro. Per questo motivo, tramite Spark, mi sono limitato a costruire la matrice di correlazione completa e poi, nella \gls{web app} sviluppata, ho implementato la possibilità di visionare la matrice completa o solamente contenente le relazioni tra le variabili e "target".
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{corr}
+	\caption{Esempio del CSV contenente la tabella di correlazione tra variabili}
+\end{figure}
 
+
+Una volta concluse queste elaborazioni, ho mostrato il lavoro svolto al tutor che mi ha seguito per la parte \textit{big data} e, dopo essermi confrontato su quanto ottenuto e su cosa visualizzare nella \textit{web app} che avrei realizzato a breve, ha validato la conclusione della parte di lavoro di elaborazione del \textit{dataset}.
 
 %**************************************************************
 
 \section{Progettazione e sviluppo della web app}
+A seguito delle elaborazioni effettuate, sono stato assegnato ad un nuovo tutor, facente parte del reparto di sviluppo software. Come da \hyperref[pdl]{Piano di Lavoro}, nella seconda parte del periodo di stage era programmato il ripasso di Java con attenzione all'ambiente Java EE. 
