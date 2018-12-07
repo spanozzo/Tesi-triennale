@@ -146,7 +146,7 @@ Hive interpreta tutti i file di una directory HDFS come contenuti di una tabella
 	\includegraphics[width=0.8\columnwidth]{query}
 	\caption{Esecuzione di una query (Fonte: Cloudera - Data Analyst Training)}
 \end{figure}
-Nel caso Hive Metastore sia condiviso, il client si connette ad un'altro attore, chiamato \textbf{Hive Metastore Service} utilizzando le \gls{api} di Apache Thrift\footcite{https://thrift.apache.org/}. A sua volta, questo si connette al Metastore attraverso le Java JDBC.
+Nel caso Hive Metastore sia condiviso, il client si connette ad un'altro attore, chiamato \textbf{Hive Metastore Service} utilizzando le \gls{api} di Apache Thrift\footcite{https://thrift.apache.org/}. A sua volta, questo si connette al Metastore attraverso \gls{Java JDBC}.
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.8\columnwidth]{hive-metastore}
@@ -213,23 +213,79 @@ Per entrambi i tipi, inoltre, il progetto richiedeva il conteggio delle righe vu
 \clearpage
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.8\columnwidth]{stats}
+	\includegraphics[width=1\columnwidth]{stats}
 	\caption{Esempio del CSV contenente le statistiche delle variabili ottenute}
 \end{figure}
 
 \subsection{Calcolo della matrice di correlazione}
 La matrice di correlazione è un indice che esprime un'eventuale relazione di linearità tra le variabili su cui è calcolato. Si rivela dunque molto utile per la stima del modello statistico, in quanto si dimostra un'analisi preliminare valida per una prima stima delle variabili significative per il modello.\\
 Nel caso particolare di questo progetto, ho costruito la matrice di correlazione utilizzando tutte e 133 le variabili. La colonna le cui correlazioni sono più interessanti è ovviamente la variabile "target", ma anche le correlazioni tra le altre colonne sono di interesse per capire se ci sono interazioni interessanti tra loro. Per questo motivo, tramite Spark, mi sono limitato a costruire la matrice di correlazione completa e poi, nella \gls{web app} sviluppata, ho implementato la possibilità di visionare la matrice completa o solamente contenente le relazioni tra le variabili e "target".
+
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.8\columnwidth]{corr}
-	\caption{Esempio del CSV contenente la tabella di correlazione tra variabili}
+	\includegraphics[width=1\columnwidth]{corr}
+	\caption{Esempio del CSV contenente la matrice di correlazione tra variabili}
 \end{figure}
 
-
-Una volta concluse queste elaborazioni, ho mostrato il lavoro svolto al tutor che mi ha seguito per la parte \textit{big data} e, dopo essermi confrontato su quanto ottenuto e su cosa visualizzare nella \textit{web app} che avrei realizzato a breve, ha validato la conclusione della parte di lavoro di elaborazione del \textit{dataset}.
+Una volta concluse queste elaborazioni, ho mostrato il lavoro svolto al tutor che mi ha seguito per la parte \textit{big data} e, dopo essermi confrontato su quanto ottenuto e su cosa visualizzare nella \gls{web app} che avrei realizzato a breve, ha validato la conclusione della parte di lavoro di elaborazione del \textit{dataset}.
 
 %**************************************************************
-
+\clearpage
 \section{Progettazione e sviluppo della web app}
-A seguito delle elaborazioni effettuate, sono stato assegnato ad un nuovo tutor, facente parte del reparto di sviluppo software. Come da \hyperref[pdl]{Piano di Lavoro}, nella seconda parte del periodo di stage era programmato il ripasso di Java con attenzione all'ambiente Java EE. 
+A seguito delle elaborazioni effettuate, sono stato assegnato ad un nuovo tutor, facente parte del reparto di sviluppo software. Come da \hyperref[pdl]{Piano di Lavoro}, nella seconda parte del periodo di stage era programmato il ripasso di Java con attenzione all'ambiente Java EE. Per fare ciò, mi sono documentato soprattutto tramite la documentazione ed i tutorial ufficiali\footcite{https://docs.oracle.com/javaee/7/tutorial/index.html} forniti da Oracle. Rispetto alla prima parte di stage, relativa ai \textit{big data}, lo studio e lo svolgimento di esercizi riepilogativi che mi permettessero di mettere in pratica le conoscenze acquisite, è stato più autonomo. Questo perchè, essendo alcune conoscenze di Java e sullo sviluppo di \gls{web app} già in mio possesso, non ho incontrato particolari difficoltà, se non alcuni dubbi che il tutor ha risolto tempestivamente.
+Per quanto riguarda la scelta dello strumento per sviluppare la parte di \textit{front-end}, inizialmente ho optato per le librerie React e Redux, in quanto già di mia conoscenza. Confrontandomi con il tutor, però, sono arrivato alla conclusione che l'utilizzo di Angular sarebbe stata la miglior scelta: in questo modo avrei potuto sfruttare il periodo in azienda per acquisire queste nuove conoscenze affiancato da personale qualificato ed esperto che avrebbe potuto aiutarmi in caso di incertezze. \\
+I requisiti individuati per la \gls{web app} seguono questa convenzione:\\\\
+\centerline{\textbf{R[Tipo][Importanza][Codice]}}\\
+Dove:
+\begin{itemize}
+	\item \textbf{Tipo}: specifica la tipologia del requisito e può assumere i valori:
+	\subitem - F: requisito funzionale;
+	\subitem - V: requisito di vincolo.
+	\item \textbf{Importanza}: specifica l'importanza del requisito e può assumere i valori:
+	\subitem - O: requisito obbligatorio;
+	\subitem - D: requisito desiderabile;
+	\subitem - P: requisito opzionale; 
+	\item  \textbf{Codice}: è il codice gerarchico univoco di ogni requisito espresso in numeri.
+\end{itemize} 
+
+\begin{table}[!h] %
+	\caption{Requisiti per la web app}
+	\label{tab:requisiti-app}
+	\begin{tabular}{ l | l }
+		\textbf{Codice} & \textbf{Descrizione}\\
+		\hline
+		\hline
+		\\[-2mm]
+		RFO01 & L'utente deve poter visualizzare le statistiche delle variabili \\
+		\hline
+		\\[-2mm]
+		RFO02 & L'utente deve poter visualizzare la matrice di correlazione completa \\
+		\hline
+		\\[-2mm]
+		RFO03 & L'utente deve poter visualizzare la correlazione fra "target" e le altre \\ & variabili \\
+		\hline
+		\\[-2mm]
+		RFO04 & L'utente deve poter effettuare la ricerca di una specifica variabile \\
+		\hline
+		\hline
+		\\[-2mm]
+		RFD01 & L'utente deve poter visualizzare dei grafici statistici per le variabili \\ & numeriche \\
+		\hline
+		\\[-2mm]
+		RFD02 & L'utente deve poter visualizzare dei grafici statistici per le variabili \\ & categoriali \\
+		\hline
+		\\[-2mm]
+		RFD03 & L'utente deve poter visualizzare le tre maggiori correlazioni di una variabile \\
+		\hline
+		\\[-2mm]
+		RFD04 & L'utente deve poter impostare un limite inferiore della correlazione tra \\ & "target" e le altre variabili \\
+		\hline
+		\hline
+		\\[-2mm]
+		RVO01 & Utilizzo di Java EE \\
+		\hline
+		\end{tabular}
+\end{table}%
+Inoltre, ho concordato assieme al tutor di utilizzare le risorse create a seguito dell' \hyperref[dataseta]{elaborazione del \textit{dataset}} salvate in locale e non sul \gls{cluster}, in quanto l'amministratore di sistema, durante il mio ultimo periodo dello stage, era impossibilitato a configurare l'accesso ad Hadoop tramite \gls{Java JDBC}. 
+
+\subsection{Struttura del software}
