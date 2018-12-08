@@ -2,25 +2,13 @@
 % !TEX TS-program = pdflatex
 % !TEX root = ../tesi.tex
 
-% (3) che risponde alle domande “cosa” e “come”, nel quale racconterai gli elementi essenziali del tuo stage,
-% vedendolo come un mini‐progetto a se stante. In questo capitolo illustrerai: (a) il metodo di lavoro con il quale hai
-% affrontato lo stage; (b) i problemi progettuali, tecnologici e applicativi che hai affrontati; (c) i risultati che hai
-% raggiunto, sia sul piano qualitativo che su quello quantitativo. Il punto (a) comprende la pianificazione, le interazioni
-% con il tutor aziendale, le revisioni di progresso, l’uso di diagrammi, di tecniche di analisi e tracciamento dei requisiti,
-% l’uso di strumenti di verifica, ecc. Il punto (b), che tratterai nella sequenza di attività che hai svolto (analisi,
-% progettazione, programmazione, verifica e validazione), metterà in luce gli aspetti principali, secondo una visione ad
-% alto livello. Entrerai in dettaglio solo per aspetti che consideri particolarmente meritevoli di attenzione dal punto di
-% vista delle conoscenze acquisite o necessarie. Il punto (c) tratta di copertura di requisiti, di copertura di testing, e di
-% quantità di prodotti (linee di codice, numero di documenti, ecc.).
-
-
 %**************************************************************
 \chapter{Resoconto dello stage}
 \label{cap:resoconto-stage}
 %**************************************************************
 
 \section{Descrizione del progetto}
-Il \textit{dataset} da elaborare ed analizzare è parte di un concorso a cui l'azienda aveva già partecipato qualche anno fa: questa competizione è stata indetta da BNP Paribas Cardif, il polo assicurativo del Gruppo BNP Paribas, e pubblicata su Keggle\footcite{https://www.kaggle.com/}, nota piattaforma in cui è possibile esporre i propri progetti, visualizzare quelli altrui e proporre sfide in ambito \textit{data science} e \textit{machine learning}.
+Il \textit{dataset} da elaborare ed analizzare è parte di un concorso a cui l'azienda aveva già partecipato qualche anno fa: questa competizione è stata indetta da BNP Paribas Cardif, il polo assicurativo del Gruppo BNP Paribas, e pubblicata su Kaggle\footcite{https://www.kaggle.com/}, nota piattaforma in cui è possibile esporre i propri progetti, visualizzare quelli altrui e proporre sfide in ambito \textit{data science} e \textit{machine learning}.
 
 \subsection{Il problema}
 In particolare, il problema proposto, "BNP Paribas Cardif Claims Management"\footcite{https://www.kaggle.com/c/bnp-paribas-cardif-claims-management}, consiste nella possibilità di classificare le pratiche assicurative in modo che queste possano essere risolte nel minor tempo possibile. A tal proposito, si chiede di prevedere la categoria di un sinistro sulla base delle caratteristiche disponibili nelle prime fasi del processo assicurativo; le due categorie di richieste di indennizzo, su cui basare la classificazione, corrispondono quindi a:
@@ -34,7 +22,7 @@ In particolare, il problema proposto, "BNP Paribas Cardif Claims Management"\foo
 	\includegraphics[width=0.6\columnwidth]{kaggle-project}
 	\caption{Illustrazione del problema proposto (Fonte: \href{https://goo.gl/AW22at}{https://goo.gl/AW22at})}
 \end{figure}
-Nella sezione \hyperref[dataset]{Elaborazione del dataset di interesse} verrà trattata la struttura del \textit{dataset} più nel dettaglio.
+Nella sezione \hyperref[dataset]{Elaborazione del dataset di interesse} viene trattata la struttura del \textit{dataset} più nel dettaglio.
 
 %**************************************************************
 
@@ -133,7 +121,7 @@ YARN, per avviare un'applicazione sul \gls{cluster}, si comporta nel modo seguen
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=1.1\columnwidth]{yarn_application}
-	\caption{Sequenza avvio applicazione di YARN}
+	\caption{Sequenza avvio applicazione di YARN (Fonte: Cloudera - Developer Training for Spark and Hadoop)}
 \end{figure}
 \clearpage
 \subsection{Apache Hive, Cloudera Impala e Apache Spark}
@@ -369,7 +357,28 @@ La composizione di questi tre componenti offerti da Java EE permette di ottenere
 	\caption{Esempio di interazione fra JSP, Servlet ed Enterprise JavaBeans (Fonte: \href{https://goo.gl/bWRWty}{https://goo.gl/bWRWty})}
 \end{figure}
 
+\subsection{Prodotto finito}
+La \gls{web app} sviluppata è quindi formata da:
+\begin{itemize}
+	\item Una pagina in cui l'utente può visualizzare i dati statistici per ogni variabile; data la grande quantità di elementi che compongono la risorsa, ho effettuato una paginazione lato server che restituisce, man mano che si scorrono le pagine, 30 risultati da mostrare all'utente. È inoltre possibile effettuare la ricerca, per nome o per valore, di una variabile nella tabella e visualizzare alcuni grafici sulle statistiche;
+	\item Una pagina in cui l'utente può visualizzare le correlazioni fra "target" e le altre variabili. Per gli elementi presenti, è inoltre possibile visualizzare in forma grafica i tre valori con cui la variabile ha correlazione maggiore. È inoltre possibile impostare un valore per cui vengono visualizzate solamente le variabili la cui correlazione è maggiore.
+	\item Una pagina in cui l'utente può visualizzare la matrice di correlazione e ricercare le variabili di interesse.
+\end{itemize}
+Nella figura sottostante è possibile vedere la pagina contente le statistiche delle variabili; in questo particolare caso ho effettuato la ricerca delle variabili contenenti "v1" nel nome e visualizzato il grafico a torta del numero dei valori vuoti e quello a barre dei valori minimi, medi e massimi del primo risultato della lista.\\
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=1\columnwidth]{screen_stats}
+	\caption{Esempio della web app: Data Statistics}
+\end{figure}
 \clearpage
+\noindent Nella figura sottostante è invece possibile vedere la pagina contente le correlazioni fra "target" e le altre variabili; in questo particolare caso ho impostato il valore minimo di correlazione a "0.15" e visualizzato il grafico a barre delle tre maggiori correlazioni del primo risultato della lista.\\
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=1\columnwidth]{screen_target}
+	\caption{Esempio della web app: Correlation Target}
+\end{figure}
+
+\newpage
 \section{Risultati ottenuti}
 Durante tutta la durata dello stage ho prodotto i seguenti documenti:
 \begin{enumerate}
@@ -381,59 +390,10 @@ Durante tutta la durata dello stage ho prodotto i seguenti documenti:
 	\item Architettura del software;
 	\item Presentazione del progetto finale.
 \end{enumerate}
-Questa documentazione mi ha permesso di concretizzare i concetti studiati durante la prima fase e, nella successiva, di poter usufruire di una fonte di informazioni in caso di dubbi.\\\\
+Questa documentazione mi ha permesso di concretizzare i concetti studiati durante la prima fase e, nella successiva, di poter usufruire di una fonte di informazioni in caso di dubbi.\\
 Per l'implementazione del prodotto ho scritto 1659 righe di codice.\\
 Non ho implementato test di verifica del prodotto, come già concordato inizialmente con il tutor aziendale, in quanto il tempo a disposizione per il progetto finale era esiguo e l'interazione con l'utente era limitata alla visualizzazione di risultati e semplici richieste di elaborazione di dati.\\\\
-Il bilancio del soddisfacimento dei requisiti è di seguito riportato, in cui, nella colonna "Stato", sono presenti dei codici così riepilogati:
-\begin{itemize}
-	\item \textcolor{green}{SO}: requisito soddisfatto;
-	\item \textcolor{orange}{PS}: requisito parzialmente soddisfatto;
-	\item \textcolor{red}{NS}: requisito non soddisfatto.
-\end{itemize}
-
-\clearpage
-\begin{table}[!h] %
-	\caption{Riepilogo soddisfacimento requisiti per la web app}
-	\label{tab:soddisfacimento-app}
-	\centering
-	\begin{tabular}{ l | l | c}
-		\textbf{Codice} & \textbf{Descrizione} & \textbf{Stato}\\
-		\hline
-		\hline
-		\\[-2.5mm]
-		RFO01 & L'utente deve poter visualizzare le statistiche \\ & delle variabili & \textcolor{green}{SO} \\
-		\hline
-		\\[-2.5mm]
-		RFO02 & L'utente deve poter visualizzare la matrice \\ & di correlazione completa & \textcolor{green}{SO} \\
-		\hline
-		\\[-2.5mm]
-		RFO03 & L'utente deve poter visualizzare la correlazione \\ & fra "target" e le altre variabili & \textcolor{green}{SO} \\
-		\hline
-		\\[-2.5mm]
-		RFO04 & L'utente deve poter effettuare la ricerca di \\ & una specifica variabile & \textcolor{green}{SO} \\
-		\hline
-		\hline
-		\\[-2.5mm]
-		RFD01 & L'utente deve poter visualizzare dei grafici statistici \\ & per le variabili numeriche & \textcolor{green}{SO} \\
-		\hline
-		\\[-2.5mm]
-		RFD02 & L'utente deve poter visualizzare dei grafici statistici \\ & per le variabili categoriali & \textcolor{green}{SO} \\
-		\hline
-		\\[-2.5mm]
-		RFD03 & L'utente deve poter visualizzare le tre maggiori \\ & correlazioni di una variabile & \textcolor{green}{SO} \\
-		\hline
-		\\[-2.5mm]
-		RFD04 & L'utente deve poter impostare un limite inferiore \\ & della correlazione tra "target" e le altre variabili & \textcolor{green}{SO} \\
-		\hline
-		\hline
-		\\[-2.5mm]
-		RVO01 & Utilizzo di Java EE & \textcolor{green}{SO} \\
-		\hline\hline
-		\\[-2.5mm]
-		RVD01 & Sviluppo di un'architettura three-tier & \textcolor{green}{SO} \\
-		\hline
-	\end{tabular}
-\end{table}%
+Il bilancio del soddisfacimento dei requisiti è di seguito riportato.\\
 
 \begin{table}[!h] %
 	\caption{Bilancio soddisfacimento requisiti per la web app}
