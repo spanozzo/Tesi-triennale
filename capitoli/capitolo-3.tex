@@ -32,7 +32,7 @@ In particolare, il problema proposto, "BNP Paribas Cardif Claims Management"\foo
 \clearpage
 \begin{figure}[!h] 
 	\centering 
-	\includegraphics[width=0.7\columnwidth]{kaggle-project}
+	\includegraphics[width=0.6\columnwidth]{kaggle-project}
 	\caption{Illustrazione del problema proposto (Fonte: \href{https://goo.gl/AW22at}{https://goo.gl/AW22at})}
 \end{figure}
 Nella sezione \hyperref[dataset]{Elaborazione del dataset di interesse} verrà trattata la struttura del \textit{dataset} più nel dettaglio.
@@ -251,38 +251,43 @@ Dove:
 \begin{table}[!h] %
 	\caption{Requisiti per la web app}
 	\label{tab:requisiti-app}
+	\centering
 	\begin{tabular}{ l | l }
 		\textbf{Codice} & \textbf{Descrizione}\\
 		\hline
 		\hline
-		\\[-2mm]
+		\\[-2.5mm]
 		RFO01 & L'utente deve poter visualizzare le statistiche delle variabili \\
 		\hline
-		\\[-2mm]
+		\\[-2.5mm]
 		RFO02 & L'utente deve poter visualizzare la matrice di correlazione completa \\
 		\hline
-		\\[-2mm]
+		\\[-2.5mm]
 		RFO03 & L'utente deve poter visualizzare la correlazione fra "target" e le altre \\ & variabili \\
 		\hline
-		\\[-2mm]
+		\\[-2.5mm]
 		RFO04 & L'utente deve poter effettuare la ricerca di una specifica variabile \\
 		\hline
 		\hline
-		\\[-2mm]
+		\\[-2.5mm]
 		RFD01 & L'utente deve poter visualizzare dei grafici statistici per le variabili \\ & numeriche \\
 		\hline
-		\\[-2mm]
+		\\[-2.5mm]
 		RFD02 & L'utente deve poter visualizzare dei grafici statistici per le variabili \\ & categoriali \\
 		\hline
-		\\[-2mm]
-		RFD03 & L'utente deve poter visualizzare le tre maggiori correlazioni di una variabile \\
+		\\[-2.5mm]
+		RFD03 & L'utente deve poter visualizzare le tre maggiori correlazioni di una \\ & variabile \\
 		\hline
-		\\[-2mm]
+		\\[-2.5mm]
 		RFD04 & L'utente deve poter impostare un limite inferiore della correlazione tra \\ & "target" e le altre variabili \\
 		\hline
 		\hline
-		\\[-2mm]
+		\\[-2.5mm]
 		RVO01 & Utilizzo di Java EE \\
+		\hline
+		\hline
+		\\[-2.5mm]
+		RVD01 & Sviluppo di un'architettura three-tier \\
 		\hline
 		\end{tabular}
 \end{table}%
@@ -304,7 +309,7 @@ Come architettura del software, ho scelto una semplice architettura \textit{thre
 	\caption{Esempio di architettura three-tier generica (Fonte: \href{https://goo.gl/nuFksu}{https://goo.gl/nuFksu})}
 \end{figure}
 
-Nella figura sottostante è possibile vedere come sia applicata un'architettura three-tier in ambiente Java EE.
+Nella figura sottostante è possibile vedere come sia applicata un'architettura \textit{three-tier} in ambiente Java EE.
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.8\columnwidth]{3-tier_java}
@@ -321,29 +326,128 @@ Nel mio caso ho sviluppato tre JSP:
 	\item listData.jsp: contenente le statiche delle variabili.
 \end{itemize}
 \subsubsection{Java Servlet}
-Sono oggetti che operano all'interno di un server web (es. Tomcat) oppure un server per applicazioni (come nel mio caso, GlassFish) permettendo la creazione di applicazione web e l'elaborazione di richieste da parte di un client.
-I servlet sono associati ad uno specifico \textit{URL} a seconda dei parametri di richiesta inviati dal client browser dell'utente al server e, una volta invocati, sono responsabili della pagina da visualizzare o quale parte dell'applicazione invocare.
-Nel mio caso ho sviluppato tre servlet:
+I servlet sono oggetti che operano all'interno di un server web (es. Tomcat) oppure un server per applicazioni (come nel mio caso, GlassFish) permettendo la creazione di applicazione web e l'elaborazione di richieste da parte di un client.
+I servlet sono associati ad uno specifico \textit{URL} a seconda dei parametri di richiesta inviati dal client browser dell'utente al server e, una volta invocati, sono responsabili della pagina da visualizzare o quale parte dell'applicazione invocare.\\
+Il flusso di dati di un servlet avviene nel seguente modo:
+\begin{enumerate}
+	\item Un client invia una richiesta (request) per un servlet ad un server;
+	\item Qualora si tratti della prima richiesta, il server istanzia e carica il servlet in questione avviando un thread che gestisca la comunicazione con il servlet stesso. Nel caso, invece, in cui il servlet sia già stato caricato in precedenza allora verrà, più semplicemente, creato un ulteriore thread che sarà associato al nuovo client, senza la necessità di ricaricare ancora il servlet;
+	\item Il server invia al servlet la richiesta pervenutagli dal client;
+	\item Il servlet costruisce ed imposta la risposta (response) e la inoltra al server;
+	\item Il server invia la risposta al client.
+\end{enumerate}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{flusso-servlet}
+	\caption{Flusso di dati in un servlet}
+\end{figure}
+
+Nel mio caso ho sviluppato i seguenti servlet:
 \begin{itemize}
-	\item DataServlet.java: contenente il servlet per l'inizializzazione  dei contenuti di listData.jsp e altre richieste di dati da parte degli script Angular per la paginazione dei risultati e la visualizzazione dei grafici;
-	\item MatrixServlet.java: contenente il servlet per l'inizializzazione  dei contenuti di corrMatrix.jsp;
-	\item TargetServlet.java: contenente il servlet per l'inizializzazione  dei contenuti di corrTarget.jsp e altre richieste di dati da parte degli script Angular per la visualizzazione dei grafici;
+	\item DataServlet.java: contenente il servlet per l'inizializzazione  dei contenuti di listData.jsp e dei relativi dati;
+	\item MatrixServlet.java: contenente il servlet per l'inizializzazione  dei contenuti di corrMatrix.jsp e dei relativi dati;
+	\item TargetServlet.java: contenente il servlet per l'inizializzazione  dei contenuti di corrTarget.jsp e dei relativi dati;
+	\item UtilCorrServlet.java: risponde inviando oggetti di tipo \gls{JSON} alle richieste di dati da parte degli script Angular per la visualizzazione dei grafici relativi alla correlazione fra "target" e le altre variabili;
+	\item UtilStatsServlet.java: risponde inviando oggetti di tipo \gls{JSON} alle richieste di dati da parte degli script Angular per la paginazione dei risultati e la visualizzazione dei grafici relativi alle statistiche delle variabili.
 \end{itemize}
 
-\subsubsection{JavaBeans}
-
-Nel mio caso ho sviluppato tre JavaBeans:
+\subsubsection{Enterprise JavaBeans}
+Gli Enterprise JavaBeans (EJB) sono i componenti software che implementano, lato server, la logica di business di una \gls{web app} all'interno della piattaforma Java EE, per definire il contenuto dinamico da mostrare al client, che può essere una pagina JSP, un servlet o anche un altro EJB o una classe Java. Risiedono dunque su un \textit{application server} e sono tipicamente utilizzati in architetture software di tipo \textit{multi-tier}.
+Nel mio caso ho sviluppato tre beans:
 \begin{itemize}
 	\item Data.java: contenente il modello dei dati delle variabili e delle relative statistiche;
 	\item Matrix.java: contenente il modello dei dati della matrice di correlazione;
 	\item Target.java: contenente il modello dei dati delle correlazioni fra "target" e le altre variabili;
 \end{itemize}
 
-Oltre a queste classi, contenenti i modelli base degli oggetti, ho sviluppato altre tre classi per gestire alcuni metodi statici di servizio per semplificare il modello dei beans.
- 
+Oltre a queste classi, contenenti i modelli base degli oggetti, ho sviluppato altre tre classi per gestire alcuni metodi statici di servizio per semplificare il modello dei beans, ad esempio per la lettura dei dati dai file \gls{CSV}.\\\\
+La composizione di questi tre componenti offerti da Java EE permette di ottenere un'architettura \textit{three-tier} che implementa il pattern architetturale MVC (Model-View-Controller).
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.5\columnwidth]{jsp_architecture}
-	\caption{Interazione fra JSP, Servlet e JavaBeans (Fonte: \href{https://goo.gl/bWRWty}{https://goo.gl/bWRWty})}
+	\includegraphics[width=0.4\columnwidth]{jsp_architecture}
+	\caption{Esempio di interazione fra JSP, Servlet ed Enterprise JavaBeans (Fonte: \href{https://goo.gl/bWRWty}{https://goo.gl/bWRWty})}
 \end{figure}
 
+\clearpage
+\section{Risultati ottenuti}
+Durante tutta la durata dello stage ho prodotto i seguenti documenti:
+\begin{enumerate}
+	\item Ripasso dei comandi della \gls{Bash};
+	\item Come funziona Hadoop e componenti principali;
+	\item Funzionamento e comandi di Hive ed Impala;
+	\item Funzionamento e comandi di Spark ed utilizzo in applicazioni Scala;
+	\item Comandi base di Cloudera Manager;
+	\item Presentazione del progetto finale.
+\end{enumerate}
+Questa documentazione mi ha permesso di concretizzare i concetti studiati durante la prima fase e, nella successiva, di poter usufruire di una fonte di informazioni in caso di dubbi.\\\\
+Per l'implementazione del prodotto ho scritto 1659 righe di codice.\\
+Non ho implementato test di verifica del prodotto, come già concordato inizialmente con il tutor aziendale, in quanto il tempo a disposizione per il progetto finale era esiguo e l'interazione con l'utente era limitata alla visualizzazione di risultati e semplici richieste di elaborazione di dati.\\\\
+Il bilancio del soddisfacimento dei requisiti è di seguito riportato, in cui, nella colonna "Stato", sono presenti dei codici così riepilogati:
+\begin{itemize}
+	\item \textcolor{green}{SO}: requisito soddisfatto;
+	\item \textcolor{orange}{PS}: requisito parzialmente soddisfatto;
+	\item \textcolor{red}{NS}: requisito non soddisfatto.
+\end{itemize}
+
+\begin{table}[!h] %
+	\caption{Riepilogo soddisfacimento requisiti per la web app}
+	\label{tab:soddisfacimento-app}
+	\centering
+	\begin{tabular}{ l | l | c}
+		\textbf{Codice} & \textbf{Descrizione} & \textbf{Stato}\\
+		\hline
+		\hline
+		\\[-2.5mm]
+		RFO01 & Visualizzare le statistiche delle variabili & \textcolor{green}{SO} \\
+		\hline
+		\\[-2.5mm]
+		RFO02 & Visualizzare la matrice di correlazione completa & \textcolor{green}{SO} \\
+		\hline
+		\\[-2.5mm]
+		RFO03 & Visualizzare la correlazione fra "target" e le altre variabili & \textcolor{green}{SO} \\
+		\hline
+		\\[-2.5mm]
+		RFO04 & Effettuare la ricerca di una specifica variabile & \textcolor{green}{SO} \\
+		\hline
+		\hline
+		\\[-2.5mm]
+		RFD01 & Visualizzare dei grafici statistici per le variabili numeriche & \textcolor{green}{SO} \\
+		\hline
+		\\[-2.5mm]
+		RFD02 & Visualizzare dei grafici statistici per le variabili categoriali & \textcolor{green}{SO} \\
+		\hline
+		\\[-2.5mm]
+		RFD03 & Visualizzare le tre maggiori correlazioni di una variabile & \textcolor{green}{SO} \\
+		\hline
+		\\[-2.5mm]
+		RFD04 & Impostare un limite inferiore della correlazione tra "target" \\ & e le altre variabili & \textcolor{green}{SO} \\
+		\hline
+		\hline
+		\\[-2.5mm]
+		RVO01 & Utilizzo di Java EE & \textcolor{green}{SO} \\
+		\hline\hline
+		\\[-2.5mm]
+		RVD01 & Sviluppo di un'architettura three-tier & \textcolor{green}{SO} \\
+		\hline
+	\end{tabular}
+\end{table}%
+
+\begin{table}[!h] %
+	\caption{Bilancio soddisfacimento requisiti per la web app}
+	\label{tab:bilancio-app}
+	\centering
+	\begin{tabular}{ c | c | c | c}
+		\textbf{Importanza} & \textbf{Individuati} & \textbf{Soddisfatti} & \textbf{\%}\\
+		\hline
+		\hline
+		\\[-2.5mm]
+		Obbligatori & 5 & 5 & 100 \\
+		\hline
+		\\[-2.5mm]
+		Desiderabili & 5 & 5 & 100 \\
+		\hline
+		\\[-2.5mm]
+		Opzionali & 0 & 0 & 100 \\
+		\hline
+	\end{tabular}
+\end{table}%
