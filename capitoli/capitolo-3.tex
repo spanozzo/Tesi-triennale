@@ -288,13 +288,62 @@ Dove:
 \end{table}%
 Inoltre, ho concordato assieme al tutor di utilizzare le risorse create a seguito dell' \hyperref[dataseta]{elaborazione del \textit{dataset}} salvate in locale e non sul \gls{cluster}, in quanto l'amministratore di sistema, durante il mio ultimo periodo di stage, era impossibilitato a configurare l'accesso ad Hadoop tramite \gls{Java JDBC}. 
 Data la natura didattica e la relativa semplicità della \gls{web app}, dopo il consiglio del tutor aziendale, ho scelto di utilizzare GlassFish\footcite{https://javaee.github.io/glassfish/} come \textit{application server} in quanto ben supportato.
+Prima di cominciare con la progettazione del prodotto, ho inoltre considerato le operazioni necessarie sui dati da presentare già in possesso: era infatti richiesta la sola lettura di questi, quindi non mi sono preoccupato di impostare un sistema che sia in grado di dare la possibilità all'utente di modificare i dati, essendo questa operazione non necessaria per la \gls{web app}.
 
 \subsection{Architettura software}
-Per la progettazione del prodotto, ho deciso di utilizzare un insieme di tecnologie offerte da Java EE.
-\subsubsection{JavaServer Pages}
+Come architettura del software, ho scelto una semplice architettura \textit{three-tier}, che si compone di tre elementi principali:
+\begin{itemize}
+	\item \textbf{Presentation tier}: (primo livello) responsabile della presentazione e dell'interazione con l'utente; 
+	\item \textbf{Business Logic tier}: (secondo livello) i processi in questo livello gestiscono la logica dell'applicazione. Si frappongono fra il primo ed il terzo livello, cosicchè il client (primo livello) non comunicherà mai direttamente con i dati persistenti del livello inferiore; in questo modo, in questo strato, è possibile elaborare i dati e gestire la sicurezza prima dell'accesso alla risorsa persistente;
+	\item \textbf{Data tier}: (terzo livello) contiene i dati salvati in un database o in un \textit{filesystem}; questi dati possono essere acceduti solamente dal livello superiore.
+\end{itemize}
 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{3-tier}
+	\caption{Esempio di architettura three-tier generica (Fonte: \href{https://goo.gl/nuFksu}{https://goo.gl/nuFksu})}
+\end{figure}
+
+Nella figura sottostante è possibile vedere come sia applicata un'architettura three-tier in ambiente Java EE.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{3-tier_java}
+	\caption{Esempio di architettura three-tier in Java (Fonte: \href{https://goo.gl/S6RYgT}{https://goo.gl/S6RYgT})}
+\end{figure}
+
+Per la progettazione del prodotto, ho deciso di utilizzare un insieme di tecnologie offerte da Java EE:
+\subsubsection{JavaServer Pages}
+Le JavaServer Pages (JSP) permettono di sviluppare pagine web generate dinamicamente, innestando codice Java all'interno di semplici pagine HTML. Per eseguire il codice Java e generare i contenuti dinamici, questo viene eseguito a \textit{runtime} e trasformato in servlet dal server in cui la \gls{web app} è in esecuzione e poi il risultato elaborato viene restituito al client.
+Nel mio caso ho sviluppato tre JSP:
+\begin{itemize}
+	\item corrMatrix.jsp: contenente la pagina di visualizzazione della matrice di correlazione;
+	\item corrTarget.jsp: contenente la pagina di visualizzazione delle correlazioni fra "target" e le altra variabili;
+	\item listData.jsp: contenente le statiche delle variabili.
+\end{itemize}
 \subsubsection{Java Servlet}
+Sono oggetti che operano all'interno di un server web (es. Tomcat) oppure un server per applicazioni (come nel mio caso, GlassFish) permettendo la creazione di applicazione web e l'elaborazione di richieste da parte di un client.
+I servlet sono associati ad uno specifico \textit{URL} a seconda dei parametri di richiesta inviati dal client browser dell'utente al server e, una volta invocati, sono responsabili della pagina da visualizzare o quale parte dell'applicazione invocare.
+Nel mio caso ho sviluppato tre servlet:
+\begin{itemize}
+	\item DataServlet.java: contenente il servlet per l'inizializzazione  dei contenuti di listData.jsp e altre richieste di dati da parte degli script Angular per la paginazione dei risultati e la visualizzazione dei grafici;
+	\item MatrixServlet.java: contenente il servlet per l'inizializzazione  dei contenuti di corrMatrix.jsp;
+	\item TargetServlet.java: contenente il servlet per l'inizializzazione  dei contenuti di corrTarget.jsp e altre richieste di dati da parte degli script Angular per la visualizzazione dei grafici;
+\end{itemize}
 
 \subsubsection{JavaBeans}
 
+Nel mio caso ho sviluppato tre JavaBeans:
+\begin{itemize}
+	\item Data.java: contenente il modello dei dati delle variabili e delle relative statistiche;
+	\item Matrix.java: contenente il modello dei dati della matrice di correlazione;
+	\item Target.java: contenente il modello dei dati delle correlazioni fra "target" e le altre variabili;
+\end{itemize}
+
+Oltre a queste classi, contenenti i modelli base degli oggetti, ho sviluppato altre tre classi per gestire alcuni metodi statici di servizio per semplificare il modello dei beans.
+ 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.5\columnwidth]{jsp_architecture}
+	\caption{Interazione fra JSP, Servlet e JavaBeans (Fonte: \href{https://goo.gl/bWRWty}{https://goo.gl/bWRWty})}
+\end{figure}
 
