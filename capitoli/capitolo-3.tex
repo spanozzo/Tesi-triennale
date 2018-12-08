@@ -189,6 +189,7 @@ Le operazioni di elaborazione del \textit{dataset} richieste sono:
 \end{enumerate}
 Tutte le operazioni sui dati sono state effettuate sul \textit{dataset} "train.csv" in quanto soggetto per la stima del modello.
 
+\newpage
 \subsection{Identificazione tipo e calcolo dati statistici}
 Per quanto riguarda il primo punto, identificare il tipo delle colonne, ho preventivamente escluso i valori vuoti o nulli.
 In seguito, ho valutato i valori rimanenti: le colonne contenenti dati di tipo stringa sono state considerate come categoriali, mentre le rimanenti come numeriche. 
@@ -198,13 +199,14 @@ Dopo aver identificato le colonne, in base al tipo di queste,ho valutato i valor
 	\item Per le colonne di tipo numerico, il progetto richiedeva il valore minimo, massimo, medio e la deviazione standard dei valori presenti.
 \end{itemize}
 Per entrambi i tipi, inoltre, il progetto richiedeva il conteggio delle righe vuote per ogni colonna, così da identificare eventuali variabili che, se non significative, sarebbero state scartate durante l'analisi.
-\clearpage
+
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=1\columnwidth]{stats}
 	\caption{Esempio del CSV contenente le statistiche delle variabili ottenute}
 \end{figure}
 
+\newpage
 \subsection{Calcolo della matrice di correlazione}
 La matrice di correlazione è un indice che esprime un'eventuale relazione di linearità tra le variabili su cui è calcolato. Si rivela dunque molto utile per la stima del modello statistico, in quanto si dimostra un'analisi preliminare valida per una prima stima delle variabili significative per il modello.\\
 Nel caso particolare di questo progetto, ho costruito la matrice di correlazione utilizzando tutte e 133 le variabili. La colonna le cui correlazioni sono più interessanti è ovviamente la variabile "target", ma anche le correlazioni tra le altre colonne sono di interesse per capire se ci sono interazioni tra loro. Per questo motivo, tramite Spark, mi sono limitato a costruire la matrice di correlazione completa e poi, nella \gls{web app} sviluppata, ho implementato la possibilità di visionare la matrice completa o solamente contenente le relazioni tra le variabili e "target".
@@ -364,14 +366,14 @@ La \gls{web app} sviluppata è quindi formata da:
 	\item Una pagina in cui l'utente può visualizzare le correlazioni fra "target" e le altre variabili. Per gli elementi presenti, è inoltre possibile visualizzare in forma grafica i tre valori con cui la variabile ha correlazione maggiore. È inoltre possibile impostare un valore per cui vengono visualizzate solamente le variabili la cui correlazione è maggiore.
 	\item Una pagina in cui l'utente può visualizzare la matrice di correlazione e ricercare le variabili di interesse.
 \end{itemize}
-Nella figura sottostante è possibile vedere la pagina contente le statistiche delle variabili; in questo particolare caso ho effettuato la ricerca delle variabili contenenti "v1" nel nome e visualizzato il grafico a torta del numero dei valori vuoti e quello a barre dei valori minimi, medi e massimi del primo risultato della lista.\\
+Nella figura sottostante è possibile vedere la pagina contenente le statistiche delle variabili; in questo particolare caso ho effettuato la ricerca delle variabili contenenti "v1" nel nome e visualizzato il grafico a torta del numero dei valori vuoti e quello a barre dei valori minimi, medi e massimi del primo risultato della lista.\\
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=1\columnwidth]{screen_stats}
 	\caption{Esempio della web app: Data Statistics}
 \end{figure}
 \clearpage
-\noindent Nella figura sottostante è invece possibile vedere la pagina contente le correlazioni fra "target" e le altre variabili; in questo particolare caso ho impostato il valore minimo di correlazione a "0.15" e visualizzato il grafico a barre delle tre maggiori correlazioni del primo risultato della lista.\\
+\noindent Nella figura sottostante è invece possibile vedere la pagina contenente le correlazioni fra "target" e le altre variabili; in questo particolare caso ho impostato il valore minimo di correlazione a "0.15" e visualizzato il grafico a barre delle tre maggiori correlazioni del primo risultato della lista.\\
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=1\columnwidth]{screen_target}
