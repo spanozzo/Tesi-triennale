@@ -358,8 +358,32 @@ La composizione di questi tre componenti offerti da Java EE permette di ottenere
 	\includegraphics[width=0.4\columnwidth]{jsp_architecture}
 	\caption{Esempio di interazione fra JSP, Servlet ed Enterprise JavaBeans (Fonte: \href{https://goo.gl/bWRWty}{https://goo.gl/bWRWty})}
 \end{figure}
+\newpage
+\section{Prodotto finito}
+\subsection{Architettura ad alto livello}
+I tre moduli che partecipano al sistema sono:
+\begin{itemize}
+	\item Il client browser dell'utente finale, in cui viene renderizzato HTLM5 ed il codice Angular;
+	\item L'application server, Glassfish, che contiene i \textit{container} di Java EE;
+	\item La parte persistente, ovvero le tabelle \gls{CSV} prodotte precedentemente durante l'\hyperref[dataset]{elaborazione del dataset}.
+\end{itemize} 
 
-\subsection{Prodotto finito}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=1\columnwidth]{architecture}
+	\caption{Architettura ad alto livello della web app}
+\end{figure}
+\noindent La visualizzazione di una pagina avviene quindi in questo modo:
+\begin{enumerate}
+	\item Il client effettua una \textit{request} verso il server, e più nel dettaglio verso il servlet;
+	\item Il servlet elabora la richiesta, eventualmente richiedendo nuovi dati all'EJB;
+	\item L'Enterprise JavaBeans, se non è già in possesso dei dati richiesti, li recupera dalle tabelle \gls{CSV} salvate localmente ed eventualmente elabora i dati presenti;
+	\item Il servlet, una volta in possesso dei nuovi dati, può reagire in due modi differenti:
+	\subitem - Se l'utente ha richiesto una nuova pagina della \gls{web app}, allora il servlet carica in una JSP i dati che poi vengono renderizzati come codice HTML;
+	\subitem - Se l'utente ha richiesto un'operazione che coinvolge uno script Angular, dopo aver trasformato i dati in formato \gls{JSON}, il servlet fa la \textit{response} verso il client e lo script renderizza i nuovi dati nel browser.
+\end{enumerate}
+\newpage
+\subsection{Funzionalità}
 La \gls{web app} sviluppata è quindi formata da:
 \begin{itemize}
 	\item Una pagina in cui l'utente può visualizzare i dati statistici per ogni variabile; data la grande quantità di elementi che compongono la risorsa, ho effettuato una paginazione lato server che restituisce, man mano che si scorrono le pagine, 30 risultati da mostrare all'utente. Quest'ultimo, può inoltre effettuare la ricerca, per nome o per valore, di una variabile nella tabella e visualizzare alcuni grafici sulle statistiche;
