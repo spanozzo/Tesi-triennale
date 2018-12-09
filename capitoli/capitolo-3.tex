@@ -8,10 +8,10 @@
 %**************************************************************
 
 \section{Descrizione del progetto}
-Il \textit{dataset} da elaborare ed analizzare è parte di un concorso a cui l'azienda aveva già partecipato qualche anno fa: questa competizione è stata indetta da BNP Paribas Cardif, il polo assicurativo del Gruppo BNP Paribas, e pubblicata su Kaggle\footcite{https://www.kaggle.com/}, nota piattaforma in cui è possibile esporre i propri progetti, visualizzare quelli altrui e proporre sfide in ambito \textit{data science} e \textit{machine learning}.
+Il \textit{dataset} da elaborare ed analizzare è parte di un concorso a cui l'azienda aveva già partecipato qualche anno fa: questa competizione è stata indetta da BNP Paribas Cardif, il polo assicurativo del Gruppo BNP Paribas, e pubblicata su Kaggle\footcite{https://www.kaggle.com/}, nota piattaforma in cui chiunque può esporre i propri progetti, visualizzare quelli altrui e proporre sfide in ambito \textit{data science} e \textit{machine learning}.
 
 \subsection{Il problema}
-In particolare, il problema proposto, "BNP Paribas Cardif Claims Management"\footcite{https://www.kaggle.com/c/bnp-paribas-cardif-claims-management}, consiste nella possibilità di classificare le pratiche assicurative in modo che queste possano essere risolte nel minor tempo possibile. A tal proposito, si chiede di prevedere la categoria di un sinistro sulla base delle caratteristiche disponibili nelle prime fasi del processo assicurativo; le due categorie di richieste di indennizzo, su cui basare la classificazione, corrispondono quindi a:
+In particolare, il problema proposto, "BNP Paribas Cardif Claims Management"\footcite{https://www.kaggle.com/c/bnp-paribas-cardif-claims-management}, consiste nella possibilità di classificare le pratiche assicurative in modo che gli addetti possano risolverle nel minor tempo possibile. A tal proposito, si chiede di prevedere la categoria di un sinistro sulla base delle caratteristiche disponibili nelle prime fasi del processo assicurativo; le due categorie di richieste di indennizzo, su cui basare la classificazione, corrispondono quindi a:
 \begin{itemize}
 	\item Quelle per le quali l'approvazione può essere accelerata, con conseguente maggiore rapidità nel rimborso e minori pratiche da gestire;
 	\item Quelle per le quali sono richieste informazioni supplementari prima dell'approvazione e del rimborso.
@@ -27,7 +27,7 @@ Nella sezione \hyperref[dataset]{Elaborazione del dataset di interesse} viene tr
 %**************************************************************
 
 \section{Studio di Hadoop e dei suoi tools}
-Prima di cominciare a lavorare sul \textit{dataset} del progetto, era necessario studiare la teoria, in quanto la prima parte dello stage considerava argomenti a me quasi totalmente sconosciuti.
+Prima di cominciare a lavorare sul \textit{dataset} del progetto, avevo la necessità di studiare la teoria, in quanto la prima parte dello stage considerava argomenti a me quasi totalmente sconosciuti.
 Autonomamente, ma sempre supervisionato dal tutor aziendale, disponibile a risolvere ogni mio dubbio, ho studiato il materiale necessario per poter eseguire poi al meglio la parte pratica. Oltre a ciò, nel corso della giornata lavorativa, il tutor mi sottoponeva delle esercitazioni da svolgere per consolidare i concetti appresi e risolvere tempestivamente miei eventuali dubbi prima di procedere con gli argomenti successivi.
 Essendo \gls{HDFS} e molti dei tool Hadoop eseguibili principalmente tramite \gls{Bash}, come prima cosa il tutor mi ha assegnato lo studio autonomo di alcuni capitoli del libro "Learning the bash Shell"\footcite{http://shop.oreilly.com/product/9780596009656.do} per ottenere le basi che mi permettessero di utilizzare i comandi che avrei utilizzato in seguito per l'utilizzo dei tool Hadoop.\\
 Dopo aver assorbito i concetti, già in parte di mia conoscenza, il tutor mi ha esposto la struttura del \gls{cluster} Hadoop in cui risiedevano i dati e venivano eseguiti i \textit{task}. 
@@ -158,7 +158,7 @@ Gli Impala Servers risiedono su ogni DataNode dell'applicazione, mentre \textbf{
 
 \subsubsection{Apache Spark}
 Spark è un \textit{framework} scritto in Scala\footcite{https://www.scala-lang.org/} per il \textit{processing} dei dati in \textit{dataset} di grandi dimensioni.
-È possibile eseguire attività di Spark tramite la \gls{Bash} o tramite applicazioni scritte in linguaggio Python, Scala o Java e poi eseguite su Hadoop.
+L'analista può eseguire attività di Spark tramite la \gls{Bash} o tramite applicazioni scritte in linguaggio Python, Scala o Java e poi eseguite su Hadoop.
 La maggior parte delle operazioni vengono eseguite tramite l'utilizzo di \textbf{RDD} (Resilient Distributed Dataset), che sono la rappresentazione più semplice dei dati in Spark e sono immutabili. Su di un RDD sono possibili due tipi di operazioni:
 \begin{itemize}
 	\item \textbf{Actions}: semplici attività terminali che restituiscono un valore, come \textit{count}, \textit{take} o \textit{collect}; 
@@ -170,7 +170,7 @@ La maggior parte delle operazioni vengono eseguite tramite l'utilizzo di \textbf
 	\caption{Esempio di operazioni in Spark}
 \end{figure}
 L'esecuzione delle attività negli RDD è \textit{lazy}, ovvero la \textit{pipeline} di operazioni non viene eseguita finché non incontra un'operazione terminale data da una \textit{action}. Inoltre, durante l'esecuzione della \textit{pipeline} delle operazioni, non viene salvato alcun risultato intermedio finché non viene eseguita un'operazione terminale.\\\\
-Un altro tipo di struttura dati, oltre ad RDD, supportata da Spark sono i \textbf{DataFrame}: questi sono \textit{dataset} organizzati con uno schema e quindi con colonne nominali. Come risultato si ottengono delle tabelle simili a quelle di un database relazionale ma con ulteriori ottimizzazioni per rendere le operazioni su di questi molto più veloci. Per eseguire queste operazioni, Spark mette a disposizione Spark SQL, un modulo per il \textit{processing} dei dati strutturato, basato sul linguaggio SQL.
+Un altro tipo di struttura dati, oltre ad RDD, supportata da Spark sono i \textbf{DataFrame}: questi sono \textit{dataset} organizzati con uno schema e quindi con colonne nominali. Come risultato si ottengono delle tabelle simili a quelle di un database relazionale ma con ulteriori ottimizzazioni che rendono le operazioni su di questi molto più veloci. Per eseguire queste operazioni, Spark mette a disposizione Spark SQL, un modulo per il \textit{processing} dei dati strutturato, basato sul linguaggio SQL.
 %**************************************************************
 \newpage
 \section{Elaborazione del dataset di interesse} \label{dataset}
@@ -180,20 +180,20 @@ Il dataset oggetto del concorso\footcite{https://www.kaggle.com/c/bnp-paribas-ca
 	\item "test.csv": che contiene i dati su cui verranno testati i modelli stimati dai partecipanti, ed in base a cui si dichiarerà il vincitore del concorso.
 \end{itemize}
 Il \textit{dataset} è anonimo, in quanto contiene dati sensibili provenienti da clienti di BNP Paribas Cardif, e contiene dati sia di tipo categoriale che numerico.  È composto da 132 colonne e 114321 righe a cui si aggiunge una colonna, "target", per il \textit{dataset} train, che contiene il risultato su cui stimare il modello. Oltre alla colonna "ID", che identifica in modo univoco l'ennupla, non si ha alcun altra informazione sui valori.\\\\
-Per effettuare le operazioni sul \textit{dataset}, che al momento del mio utilizzo era già presente nel \gls{cluster} dell'azienda, è stato utilizzato solamente Spark. Nello specifico, ho utilizzato il linguaggio Scala per scrivere la \textit{pipeline} di operazioni da eseguire sul \gls{cluster}. È stato possibile utilizzare solamente Spark e non Hive o Impala in quanto, utilizzando i DataFrame come spiegato nella sezione precedente, è possibile utilizzare Spark SQL per effettuare le \textit{query} sui dati in modo semplice con un linguaggio simile ad SQL.
-Questo mi ha permesso di concentrarmi solamente sulla scrittura della pipeline di operazioni in Scala, da cui poi si è ricavato il \gls{JAR} eseguito sul \gls{cluster}.
+Per effettuare le operazioni sul \textit{dataset}, che al momento del mio utilizzo era già presente nel \gls{cluster} dell'azienda, ho utilizzato solamente Spark. Nello specifico, ho utilizzato il linguaggio Scala per scrivere la \textit{pipeline} di operazioni da eseguire sul \gls{cluster}. Ho potuto utilizzare solamente Spark e non Hive o Impala in quanto, utilizzando i DataFrame come spiegato nella sezione precedente, è possibile sfruttare Spark SQL per effettuare le \textit{query} sui dati in modo semplice con un linguaggio simile ad SQL.
+Questo mi ha permesso di concentrarmi solamente sulla scrittura della pipeline di operazioni in Scala, da cui poi ho ricavato il \gls{JAR} eseguito sul \gls{cluster}.
 Le operazioni di elaborazione del \textit{dataset} richieste sono:
 \begin{enumerate}
 	\item Identificazione del tipo (intero, double o stringa) della colonna e calcolo di statistiche di interesse sui valori contenuti;
 	\item Calcolo della matrice di correlazione fra le varie colonne del \textit{dataset}.
 \end{enumerate}
-Tutte le operazioni sui dati sono state effettuate sul \textit{dataset} "train.csv" in quanto soggetto per la stima del modello.
+Ho effettuato tutte le operazioni sul \textit{dataset} "train.csv" in quanto soggetto per la stima del modello.
 
 \newpage
 \subsection{Identificazione tipo e calcolo dati statistici}
 Per quanto riguarda il primo punto, identificare il tipo delle colonne, ho preventivamente escluso i valori vuoti o nulli.
-In seguito, ho valutato i valori rimanenti: le colonne contenenti dati di tipo stringa sono state considerate come categoriali, mentre le rimanenti come numeriche. 
-Dopo aver identificato le colonne, in base al tipo di queste,ho valutato i valori e calcolato le statistiche di interesse:
+In seguito, ho valutato i valori rimanenti: ho considerato le colonne contenenti dati di tipo come categoriali, mentre le rimanenti come numeriche. 
+Dopo aver identificato le colonne, in base al tipo di queste, ho valutato i valori e calcolato le statistiche di interesse:
 \begin{itemize}
 	\item Per le colonne di tipo categoriale, il progetto richiedeva l'identificazione dei valori univoci ed il calcolo delle relative occorrenze;
 	\item Per le colonne di tipo numerico, il progetto richiedeva il valore minimo, massimo, medio e la deviazione standard dei valori presenti.
@@ -222,7 +222,7 @@ Una volta concluse queste elaborazioni, ho mostrato il lavoro svolto al tutor ch
 %**************************************************************
 \clearpage
 \section{Progettazione e sviluppo della web app}
-A seguito delle elaborazioni effettuate, mi ha affiancato un nuovo tutor, facente parte del reparto di sviluppo software. Come da \hyperref[pdl]{Piano di Lavoro}, nella seconda parte del periodo di stage era programmato il ripasso di Java con attenzione all'ambiente Java EE. Per fare ciò, mi sono documentato soprattutto tramite la documentazione ed i tutorial ufficiali\footcite{https://docs.oracle.com/javaee/7/tutorial/index.html} forniti da Oracle. Rispetto alla prima parte di stage, relativa ai \textit{big data}, lo studio e lo svolgimento di esercizi riepilogativi che mi permettessero di mettere in pratica le conoscenze acquisite è stato più autonomo. Questo perchè, essendo alcune conoscenze di Java e sullo sviluppo di \gls{web app} già in mio possesso, non ho incontrato particolari difficoltà, se non alcuni dubbi che il tutor ha risolto tempestivamente.
+A seguito delle elaborazioni effettuate, mi ha affiancato un nuovo tutor, facente parte del reparto di sviluppo software. Come da \hyperref[pdl]{Piano di Lavoro}, nella seconda parte del periodo di stage era programmato il ripasso di Java con attenzione all'ambiente Java EE. Per fare ciò, mi sono documentato soprattutto tramite la documentazione ed i tutorial ufficiali\footcite{https://docs.oracle.com/javaee/7/tutorial/index.html} forniti da Oracle. Rispetto alla prima parte di stage, relativa ai \textit{big data}, ho svolto in modo più autonomo lo studio e lo svolgimento di esercizi riepilogativi che mi permettessero di mettere in pratica le conoscenze acquisite. Questo perchè, essendo alcune conoscenze di Java e sullo sviluppo di \gls{web app} già in mio possesso, non ho incontrato particolari difficoltà, se non alcuni dubbi che il tutor ha risolto tempestivamente.
 Per quanto riguarda la scelta dello strumento per sviluppare la parte di \textit{front-end}, inizialmente ho optato per le librerie React e Redux, in quanto già di mia conoscenza. Confrontandomi con il tutor, però, sono arrivato alla conclusione che l'utilizzo di Angular sarebbe stata la miglior scelta: in questo modo avrei potuto sfruttare il periodo in azienda per acquisire queste nuove conoscenze affiancato da personale qualificato ed esperto che avrebbe potuto aiutarmi in caso di incertezze. \\
 I requisiti individuati per la \gls{web app} seguono questa convenzione:\\\\
 \centerline{\textbf{R[Tipo][Importanza][Codice]}}\\
@@ -234,12 +234,12 @@ Dove:
 	\item \textbf{Importanza}: specifica l'importanza del requisito e può assumere i valori:
 	\subitem - O: requisito obbligatorio;
 	\subitem - D: requisito desiderabile;
-	\subitem - P: requisito opzionale; 
+	\subitem - P: requisito opzionale.
 	\item  \textbf{Codice}: è il codice gerarchico univoco di ogni requisito espresso in numeri.
 \end{itemize} 
 \clearpage
 \begin{table}[!h] %
-	\caption{Requisiti per la web app}
+	\caption{Requisiti per la web app} \label{req-web-app}
 	\label{tab:requisiti-app}
 	\centering
 	\begin{tabular}{ l | l }
@@ -282,9 +282,9 @@ Dove:
 		\hline
 		\end{tabular}
 \end{table}%
-Inoltre, ho concordato assieme al tutor di utilizzare le risorse create a seguito dell' \hyperref[dataseta]{elaborazione del \textit{dataset}} salvate in locale e non sul \gls{cluster}, in quanto l'amministratore di sistema, durante il mio ultimo periodo di stage, era impossibilitato a configurare l'accesso ad Hadoop tramite \gls{Java JDBC}. \\
+Inoltre, ho concordato assieme al tutor di utilizzare le risorse create a seguito dell'\hyperref[dataset]{elaborazione del \textit{dataset}} salvate in locale e non sul \gls{cluster}, in quanto l'amministratore di sistema, durante il mio ultimo periodo di stage, non aveva la possibilità di configurare l'accesso ad Hadoop tramite \gls{Java JDBC}. \\
 Data la natura didattica e la relativa semplicità della \gls{web app}, dopo il consiglio del tutor aziendale, ho scelto di utilizzare GlassFish\footcite{https://javaee.github.io/glassfish/} come \textit{application server} in quanto ben supportato.
-Prima di cominciare con la progettazione del prodotto, ho inoltre considerato le operazioni necessarie sui dati da presentare già in possesso: era infatti richiesta la sola lettura di questi, quindi non mi sono preoccupato di impostare un sistema che fosse in grado di dare la possibilità all'utente di modificare i dati, essendo questa operazione non necessaria per la \gls{web app}.
+Prima di cominciare con la progettazione del prodotto, ho inoltre considerato le operazioni necessarie sui dati da presentare già in possesso: il progetto richiedeva infatti la sola lettura di questi, quindi non mi sono preoccupato di impostare un sistema che fosse in grado di dare la possibilità all'utente di modificare i dati, essendo questa operazione non necessaria per la \gls{web app}.
 
 \subsection{Architettura software}
 Come architettura del software, ho scelto una semplice architettura \textit{three-tier}, che si compone di tre elementi principali:
@@ -309,7 +309,7 @@ Nella figura sottostante è possibile vedere come sia applicata un'architettura 
 
 Per lo sviluppo del prodotto, ho deciso di utilizzare un insieme di tecnologie offerte da Java EE.
 \subsubsection{JavaServer Pages}
-Le JavaServer Pages (JSP) permettono di sviluppare pagine web generate dinamicamente, innestando codice Java all'interno di semplici pagine HTML. Per eseguire il codice Java e generare i contenuti dinamici, questo viene eseguito a \textit{runtime} e trasformato in servlet dal server in cui la \gls{web app} è in esecuzione e poi il risultato elaborato viene restituito al client.
+Le JavaServer Pages (JSP) permettono di sviluppare pagine web generate dinamicamente, innestando codice Java all'interno di semplici pagine HTML. Per eseguire il codice Java e generare i contenuti dinamici, questo viene eseguito a \textit{runtime} e trasformato in servlet dal server in cui la \gls{web app} è in esecuzione, che poi restituisce il risultato elaborato al client.
 Nel mio caso ho sviluppato tre JSP:
 \begin{itemize}
 	\item corrMatrix.jsp: contenente la pagina di visualizzazione della matrice di correlazione;
@@ -348,7 +348,7 @@ Nel mio caso ho sviluppato tre beans:
 \begin{itemize}
 	\item Data.java: contenente il modello dei dati delle variabili e delle relative statistiche;
 	\item Matrix.java: contenente il modello dei dati della matrice di correlazione;
-	\item Target.java: contenente il modello dei dati delle correlazioni fra "target" e le altre variabili;
+	\item Target.java: contenente il modello dei dati delle correlazioni fra "target" e le altre variabili.
 \end{itemize}
 
 Oltre a queste classi, contenenti i modelli base degli oggetti, ho sviluppato altre tre classi per gestire alcuni metodi statici di servizio per semplificare il modello dei beans, ad esempio per la lettura dei dati dai file \gls{CSV}.\\\\
@@ -362,18 +362,18 @@ La composizione di questi tre componenti offerti da Java EE permette di ottenere
 \subsection{Prodotto finito}
 La \gls{web app} sviluppata è quindi formata da:
 \begin{itemize}
-	\item Una pagina in cui l'utente può visualizzare i dati statistici per ogni variabile; data la grande quantità di elementi che compongono la risorsa, ho effettuato una paginazione lato server che restituisce, man mano che si scorrono le pagine, 30 risultati da mostrare all'utente. È inoltre possibile effettuare la ricerca, per nome o per valore, di una variabile nella tabella e visualizzare alcuni grafici sulle statistiche;
-	\item Una pagina in cui l'utente può visualizzare le correlazioni fra "target" e le altre variabili. Per gli elementi presenti, è inoltre possibile visualizzare in forma grafica i tre valori con cui la variabile ha correlazione maggiore. È inoltre possibile impostare un valore per cui vengono visualizzate solamente le variabili la cui correlazione è maggiore.
+	\item Una pagina in cui l'utente può visualizzare i dati statistici per ogni variabile; data la grande quantità di elementi che compongono la risorsa, ho effettuato una paginazione lato server che restituisce, man mano che si scorrono le pagine, 30 risultati da mostrare all'utente. Quest'ultimo, può inoltre effettuare la ricerca, per nome o per valore, di una variabile nella tabella e visualizzare alcuni grafici sulle statistiche;
+	\item Una pagina in cui l'utente può visualizzare le correlazioni fra "target" e le altre variabili. Per gli elementi presenti, l'utente può visualizzare in forma grafica i tre valori con cui la variabile ha correlazione maggiore e impostare un valore per cui visualizzare solamente le variabili la cui correlazione è maggiore.
 	\item Una pagina in cui l'utente può visualizzare la matrice di correlazione e ricercare le variabili di interesse.
 \end{itemize}
-Nella figura sottostante è possibile vedere la pagina contenente le statistiche delle variabili; in questo particolare caso ho effettuato la ricerca delle variabili contenenti "v1" nel nome e visualizzato il grafico a torta del numero dei valori vuoti e quello a barre dei valori minimi, medi e massimi del primo risultato della lista.\\
+Nella figura sottostante ho riportato la pagina contenente le statistiche delle variabili; in questo particolare caso ho effettuato la ricerca delle variabili contenenti "v1" nel nome e visualizzato il grafico a torta del numero dei valori vuoti e quello a barre dei valori minimi, medi e massimi del primo risultato della lista.\\
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=1\columnwidth]{screen_stats}
 	\caption{Esempio della web app: Data Statistics}
 \end{figure}
 \clearpage
-\noindent Nella figura sottostante è invece possibile vedere la pagina contenente le correlazioni fra "target" e le altre variabili; in questo particolare caso ho impostato il valore minimo di correlazione a "0.15" e visualizzato il grafico a barre delle tre maggiori correlazioni del primo risultato della lista.\\
+\noindent Nella figura sottostante ho invece riportato la pagina contenente le correlazioni fra "target" e le altre variabili; in questo particolare caso ho impostato il valore minimo di correlazione a "0.15" e visualizzato il grafico a barre delle tre maggiori correlazioni del primo risultato della lista.\\
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=1\columnwidth]{screen_target}
@@ -392,10 +392,10 @@ Durante tutta la durata dello stage ho prodotto i seguenti documenti:
 	\item Architettura del software;
 	\item Presentazione del progetto finale.
 \end{enumerate}
-Questa documentazione mi ha permesso di concretizzare i concetti studiati durante la prima fase e, nella successiva, di poter usufruire di una fonte di informazioni in caso di dubbi.\\
+Questa documentazione mi ha permesso di concretizzare i concetti studiati durante la prima fase e, nella successiva, di poter usufruire di una fonte di informazioni in caso di dubbi.\\\\
 Per l'implementazione del prodotto ho scritto 1659 righe di codice.\\
 Non ho implementato test di verifica del prodotto, come già concordato inizialmente con il tutor aziendale, in quanto il tempo a disposizione per il progetto finale era esiguo e l'interazione con l'utente era limitata alla visualizzazione di risultati e semplici richieste di elaborazione di dati.\\\\
-Il bilancio del soddisfacimento dei requisiti è di seguito riportato.\\
+Il bilancio del soddisfacimento dei \hyperref[req-web-app]{requisiti dell'applicazione} è di seguito riportato.\\
 
 \begin{table}[!h] %
 	\caption{Bilancio soddisfacimento requisiti per la web app}
