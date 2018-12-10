@@ -15,7 +15,24 @@ Sono riuscito a raggiungere tutti gli obiettivi obbligatori e parzialmente quell
 	\item Sviluppo di un'applicazione Java EE \textit{3-tier}, composta da un'interfaccia grafica HTML5/Angular in grado di visualizzare i dati dei risultati in modalità grafica e un Web Service RESTful per la presentazione dei dati in formato JSON recuperati con Hive/Impala.
 \end{itemize}
 Questo perchè, come precedentemente già descritto, l'amministratore di sistema dell'azienda non ha potuto configurare le \gls{Java JDBC} in tempo per il mio utilizzo e, quindi, ho recuperato i dati ricavati dall'\hyperref[dataset]{elaborazione del dataset} da tabelle \gls{CSV} salvate sulla macchina locale invece che sul \gls{cluster}, che sarebbero state recuperate utilizzando Hive o Impala. Comunque ho raggiunto le rimanenti specifiche richieste dell'obiettivo. \\
-Durante il tempo guadagnato dalla mancanza della necessità di implementare la connessione del sistema con il \gls{cluster}, ho ottimizzato il prodotto, soprattutto per la visualizzazione dei risultati mediante gli script Angular sviluppati.
+Durante il tempo guadagnato dalla mancanza della necessità di implementare la connessione del sistema con il \gls{cluster}, ho ottimizzato il prodotto, soprattutto per la visualizzazione dei risultati mediante gli script Angular sviluppati. \\\\
+Il bilancio del soddisfacimento degli \hyperref[obiettivi_stage]{obiettivi di stage} è di seguito riportato.
+\begin{table}[!h] %
+	\caption{Bilancio soddisfacimento obiettivi di stage}
+	\label{tab:bilancio-app}
+	\centering
+	\begin{tabular}{ c | c | c | c}
+		\textbf{Importanza} & \textbf{Individuati} & \textbf{Soddisfatti} & \textbf{\%}\\
+		\hline
+		\hline
+		\\[-2.5mm]
+		Obbligatori & 4 & 4 & 100 \\
+		\hline
+		\\[-2.5mm]
+		Desiderabili & 3 & 2 & 67 \\
+		\hline
+	\end{tabular}
+\end{table}%
 
 \section{Conoscenze acquisite}
 Le conoscenze che ho aggiunto o ampliato rispetto al bagaglio formativo in mio possesso prima dell'inizio dello stage sono molteplici.
@@ -33,14 +50,13 @@ Avere quindi la possibilità di studiare gli strumenti del mondo \textit{big dat
 
 \paragraph{Tecnologie}
 Durante questo periodo di tirocinio, ho avuto la possibilità di approcciarmi a tecnologie per me nuove, sia inerenti allo sviluppo software (Java EE e Angular), sia per quanto riguarda il mondo \textit{big data} (Hadoop e i suoi tool). \\
-Ho avuto come riferimento in azienda, oltre che al tutor, alcuni sviluppatori e analisti a cui rivolgermi per dubbi o problemi. In questo modo ho potuto apprendere, confrontandomi direttamente con loro, le \textit{best practies} da utilizzare.
+Ho avuto come riferimento in azienda, oltre che al tutor, alcuni sviluppatori e analisti a cui rivolgermi per dubbi o problemi. In questo modo ho potuto apprendere, confrontandomi direttamente con loro, le \textit{best practice} da utilizzare.
 
 \paragraph{Presentazione ed esposizione verbale}
 Il confronto continuo con i tutor aziendali e il personale che mi circondava, mi ha permesso di farmi maturare nella produzione ed esposizione verbale dei risultati che ho ottenuto. Infatti, ho compreso quanto risulti utile esporre ad altre persone i propri dubbi e il lavoro svolto, in quanto ho maturato uno spirito più critico verso ciò che facevo, sia in termini di attività svolte che di risultati finali.
 
 \paragraph{L'azienda}
-Durante il periodo in azienda ho avuto l'occasione di vedere più da vicino come è strutturata questo tipo di realtà e il suo funzionamento interno in termini di processi aziendali. \\
-Ho realizzato l'importanza della suddivisione e la distinzione dei compiti fra i vari componenti aziendali, nonostante sia fondamentale la comunicazione e il contatto fra i vari ruoli per avere un confronto critico imparziale.
+Durante il periodo in azienda ho avuto l'occasione di vedere più da vicino come è strutturata questo tipo di realtà e il suo funzionamento interno in termini di processi aziendali. Ho realizzato l'importanza della suddivisione e la distinzione dei compiti fra i vari componenti aziendali, nonostante sia fondamentale la comunicazione e il contatto fra i vari ruoli per avere un confronto critico imparziale.
 
 \section{Valutazione personale}
 Non avendo esperienze lavorative rilevanti maturate, se non per progetti individuali o effettuati durante il periodo precedente l'università, visto che in questi anni ho preferito concentrami sugli studi e avere la possibilità di frequentare le lezioni dei corsi universitari, durante questo stage ho avuto modo di farmi una prima opinione sul gap formativo che sussiste fra università e lavoro. \\ 
@@ -50,5 +66,8 @@ Durante i primi anni, ho trovato molti corsi non molto stimolanti, soprattutto p
 Quest'ultimo anno però, fortunatamente, ho rivalutato la mia opinione. Ho potuto apprezzare questo corso di laurea e sviluppare conoscenze utili che mi interessano veramente, così da poter capire su quali argomenti volermi concentrare. \\
 Durante quest'ultimo anno il carico di lavoro si è distinto notevolmente rispetto ai primi: ci sono un paio di progetti di gruppo che impegnano per un numero di ore non indifferente, che portano ad assumersi responsabilità molto differenti da quanto sperimentato prima. Non esiste, dunque, un avvicinamento graduale a questi impegni e, oltre a ciò, gli strumenti e i concetti affrontati sono molteplici e concentrati in un periodo di tempo limitato che può portare inizialmente a delle difficoltà. \\
 Ritengo che potrebbe essere utile introdurre queste conoscenze gradualmente insieme alla semplice programmazione fine a sè stessa, così che venga naturale svolgere attività come il versionamento del codice o i processi di supporto ad un progetto al momento dello sviluppo di lavori più complessi. \\\\
-\noindent Per quanto riguarda la mia personale opinione su questa esperienza, posso dire che mi ritengo in buona parte appagato. Se infatti da una parte ho prodotto pienamente quanto richiesto dall'azienda, che si è dimostrata soddisfatta, dall'altra devo ammettere che, seppur molto interessanti, gli argomenti trattati sono stati leggermente slegati dagli insegnamenti affrontati durante il percorso di studio. Personalmente, ho tratto molto aiuto dall'insegnamento "\textit{Data Mining}" per il percorso di stage al fine di comprendere meglio l'obiettivo finale e l'argomento in generale. Questo corso, però, non fa parte della laurea triennale, ma bensì della magistrale che ho inserito fra gli insegnamenti opzionali del terzo anno, e quindi un altro studente potrebbe non avere queste conoscenze. Ritengo inoltre che un progetto più complesso, contenente anche lo sviluppo di un modello statistico per i dati elaborati, possa rendere più completa l'esperienza di tirocinio e dare più soddisfazioni allo studente. Questo, però, essendo un'attività impegnativa, richiederebbe molte più ore di quante richieste per lo stage curricolare e quindi non sarebbe indicata come esperienza al termine della laurea triennale. \\
+\noindent Per quanto riguarda la mia personale opinione su questa esperienza, posso dire che mi ritengo in buona parte appagato. Se infatti da una parte ho prodotto pienamente quanto richiesto dall'azienda, che si è dimostrata soddisfatta, dall'altra devo ammettere che, seppur molto interessanti, gli argomenti trattati sono stati leggermente slegati dagli insegnamenti affrontati durante il percorso di studio. 
+Ritengo infatti che uno stage, i cui obiettivi principali riguardano il mondo \textit{big data}, necessiti di un'insegnamento, o un'integrazione in uno già esistente, che permettano a studenti e futuri tirocinanti di comprendere l'importanza dello studio dei dati prodotti sempre in maggior misura. Se infatti in corsi relativi alle tecnologie di internet si incrementasse questo tipo di studi, penso che ogni studente ne trarrebbe dei benefici, così da considerare questo aspetto in futuri progetti.
+Oltre a ciò, considero che uno studio più approfondito di alcuni modelli statistici di base, come fornito dal corso "\textit{Data Mining}", possa rivelarsi utile per uno studente, non solo nell'ambito di questo stage.
+Considero inoltre che un progetto più complesso, contenente anche lo sviluppo di un modello statistico per i dati elaborati, possa rendere più completa l'esperienza di tirocinio e dare più soddisfazioni allo studente. Questo, però, essendo un'attività impegnativa, richiederebbe molte più ore di quante richieste per lo stage curricolare e quindi non sarebbe indicata come esperienza al termine della laurea triennale. \\
 Tutto sommato, comunque, ritengo di aver acquisito durante questo percorso delle conoscenze molto utili e complete per affrontare nuovamente altri problemi similari in modo più maturo e con una visione differente rispetto a quanto avrei fatto in precedenza.

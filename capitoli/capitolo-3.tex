@@ -8,10 +8,10 @@
 %**************************************************************
 
 \section{Descrizione del progetto}
-Il \textit{dataset} da elaborare ed analizzare è parte di un concorso a cui l'azienda aveva già partecipato qualche anno fa: questa competizione è stata indetta da BNP Paribas Cardif, il polo assicurativo del Gruppo BNP Paribas, e pubblicata su Kaggle\footcite{https://www.kaggle.com/}, nota piattaforma in cui chiunque può esporre i propri progetti, visualizzare quelli altrui e proporre sfide in ambito \textit{data science} e \textit{machine learning}.
+Il \textit{dataset} da elaborare ed analizzare è parte di un concorso a cui l'azienda aveva già partecipato qualche anno fa: questa competizione è stata indetta da BNP Paribas Cardif, il polo assicurativo del Gruppo BNP Paribas, e pubblicata su Kaggle\footcite{site:kaggle}, nota piattaforma in cui chiunque può esporre i propri progetti, visualizzare quelli altrui e proporre sfide in ambito \textit{data science} e \textit{machine learning}.
 
 \subsection{Il problema}
-In particolare, il problema proposto, "BNP Paribas Cardif Claims Management"\footcite{https://www.kaggle.com/c/bnp-paribas-cardif-claims-management}, consiste nella possibilità di classificare le pratiche assicurative in modo che gli addetti possano risolverle nel minor tempo possibile. A tal proposito, si chiede di prevedere la categoria di un sinistro sulla base delle caratteristiche disponibili nelle prime fasi del processo assicurativo; le due categorie di richieste di indennizzo, su cui basare la classificazione, corrispondono quindi a:
+In particolare, il problema proposto, "BNP Paribas Cardif Claims Management"\footcite{site:kagglepr}, consiste nella possibilità di classificare le pratiche assicurative in modo che gli addetti possano risolverle nel minor tempo possibile. A tal proposito, si chiede di prevedere la categoria di un sinistro sulla base delle caratteristiche disponibili nelle prime fasi del processo assicurativo; le due categorie di richieste di indennizzo, su cui basare la classificazione, corrispondono quindi a:
 \begin{itemize}
 	\item Quelle per le quali l'approvazione può essere accelerata, con conseguente maggiore rapidità nel rimborso e minori pratiche da gestire;
 	\item Quelle per le quali sono richieste informazioni supplementari prima dell'approvazione e del rimborso.
@@ -29,7 +29,7 @@ Nella sezione \hyperref[dataset]{Elaborazione del dataset di interesse} viene tr
 \section{Studio di Hadoop e dei suoi tools}
 Prima di cominciare a lavorare sul \textit{dataset} del progetto, avevo la necessità di studiare la teoria, in quanto la prima parte dello stage considerava argomenti a me quasi totalmente sconosciuti.
 Autonomamente, ma sempre supervisionato dal tutor aziendale, disponibile a risolvere ogni mio dubbio, ho studiato il materiale necessario per poter eseguire poi al meglio la parte pratica. Oltre a ciò, nel corso della giornata lavorativa, il tutor mi sottoponeva delle esercitazioni da svolgere per consolidare i concetti appresi e risolvere tempestivamente miei eventuali dubbi prima di procedere con gli argomenti successivi.
-Essendo \gls{HDFS} e molti dei tool Hadoop eseguibili principalmente tramite \gls{Bash}, come prima cosa il tutor mi ha assegnato lo studio autonomo di alcuni capitoli del libro "Learning the bash Shell"\footcite{http://shop.oreilly.com/product/9780596009656.do} per ottenere le basi che mi permettessero di utilizzare i comandi che avrei utilizzato in seguito per l'utilizzo dei tool Hadoop.\\
+Essendo \gls{HDFS} e molti dei tool Hadoop eseguibili principalmente tramite \gls{Bash}, come prima cosa il tutor mi ha assegnato lo studio autonomo di alcuni capitoli del libro "Learning the bash Shell" per ottenere le basi che mi permettessero di utilizzare i comandi che avrei utilizzato in seguito per l'utilizzo dei tool Hadoop.\\
 Dopo aver assorbito i concetti, già in parte di mia conoscenza, il tutor mi ha esposto la struttura del \gls{cluster} Hadoop in cui risiedevano i dati e venivano eseguiti i \textit{task}. 
 
 \subsection{Apache Hadoop}
@@ -44,7 +44,7 @@ Ogni giorno si generano petabytes di dati che, se processati ed analizzati a dov
 	\caption{Attori principali del sistema Hadoop (Fonte: Cloudera - Developer Training for Spark and Hadoop)}
 \end{figure}
 \subsubsection{HDFS}
-Hadoop Distributed File System (HDFS) è un \textit{file system} scritto in Java, basato su Google File System\footcite{https://ai.google/research/pubs/pub51}. \\
+Hadoop Distributed File System (HDFS) è un \textit{file system} scritto in Java, basato su Google File System\footcite{site:gfs}. \\
 Offre performance migliori con un modesto numero di file di grandi dimensioni piuttosto che miliardi di file frammentati, per questo motivo, anche le operazioni di \textit{read}, sono ottimizzate per la lettura in \textit{streaming} piuttosto che quelle casuali. Inoltre, i file sono tutti \textit{write-once} e quindi non modificabili una volta memorizzati.
 In scrittura, infatti, i dati sono suddivisi in blocchi di dimensione fissata e distribuiti tra i nodi in modo ridondante per prevenire la perdita di informazioni nel caso un nodo non fosse più disponibile in seguito.
 \begin{figure}[!h]
@@ -134,7 +134,7 @@ Hive interpreta tutti i file di una directory HDFS come contenuti di una tabella
 	\includegraphics[width=0.8\columnwidth]{query}
 	\caption{Esecuzione di una query (Fonte: Cloudera - Data Analyst Training)}
 \end{figure}
-\\Nel caso Hive Metastore sia condiviso, il client si connette ad un altro attore, chiamato \textbf{Hive Metastore Service} utilizzando le \gls{api} di Apache Thrift\footcite{https://thrift.apache.org/}. A sua volta, questo si connette al Metastore attraverso \gls{Java JDBC}.
+\\Nel caso Hive Metastore sia condiviso, il client si connette ad un altro attore, chiamato \textbf{Hive Metastore Service} utilizzando le \gls{api} di Apache Thrift\footcite{site:thrift}. A sua volta, questo si connette al Metastore attraverso \gls{Java JDBC}.
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.8\columnwidth]{hive-metastore}
@@ -157,7 +157,7 @@ Gli Impala Servers risiedono su ogni DataNode dell'applicazione, mentre \textbf{
 \end{figure}
 
 \subsubsection{Apache Spark}
-Spark è un \textit{framework} scritto in Scala\footcite{https://www.scala-lang.org/} per il \textit{processing} dei dati in \textit{dataset} di grandi dimensioni.
+Spark è un \textit{framework} scritto in Scala\footcite{site:scala} per il \textit{processing} dei dati in \textit{dataset} di grandi dimensioni.
 L'analista può eseguire attività di Spark tramite la \gls{Bash} o tramite applicazioni scritte in linguaggio Python, Scala o Java e poi eseguite su Hadoop.
 La maggior parte delle operazioni vengono eseguite tramite l'utilizzo di \textbf{RDD} (Resilient Distributed Dataset), che sono la rappresentazione più semplice dei dati in Spark e sono immutabili. Su di un RDD sono possibili due tipi di operazioni:
 \begin{itemize}
@@ -174,7 +174,7 @@ Un altro tipo di struttura dati, oltre ad RDD, supportata da Spark sono i \textb
 %**************************************************************
 \newpage
 \section{Elaborazione del dataset di interesse} \label{dataset}
-Il dataset oggetto del concorso\footcite{https://www.kaggle.com/c/bnp-paribas-cardif-claims-management/data} è composto da due parti:
+Il dataset oggetto del concorso\footcite{site:kaggle-dataset} è composto da due parti:
 \begin{itemize}
 	\item "train.csv": che contiene i dati su cui effettuare le analisi e su cui basare il modello statistico;
 	\item "test.csv": che contiene i dati su cui verranno testati i modelli stimati dai partecipanti, ed in base a cui si dichiarerà il vincitore del concorso.
@@ -222,7 +222,7 @@ Una volta concluse queste elaborazioni, ho mostrato il lavoro svolto al tutor ch
 %**************************************************************
 \clearpage
 \section{Progettazione e sviluppo della web app}
-A seguito delle elaborazioni effettuate, mi ha affiancato un nuovo tutor, facente parte del reparto di sviluppo software. Come da \hyperref[pdl]{Piano di Lavoro}, nella seconda parte del periodo di stage era programmato il ripasso di Java con attenzione all'ambiente Java EE. Per fare ciò, mi sono documentato soprattutto tramite la documentazione ed i tutorial ufficiali\footcite{https://docs.oracle.com/javaee/7/tutorial/index.html} forniti da Oracle. Rispetto alla prima parte di stage, relativa ai \textit{big data}, ho svolto in modo più autonomo lo studio e lo svolgimento di esercizi riepilogativi che mi permettessero di mettere in pratica le conoscenze acquisite. Questo perchè, essendo alcune conoscenze di Java e sullo sviluppo di \gls{web app} già in mio possesso, non ho incontrato particolari difficoltà, se non alcuni dubbi che il tutor ha risolto tempestivamente.
+A seguito delle elaborazioni effettuate, mi ha affiancato un nuovo tutor, facente parte del reparto di sviluppo software. Come da \hyperref[pdl]{Piano di Lavoro}, nella seconda parte del periodo di stage era programmato il ripasso di Java con attenzione all'ambiente Java EE. Per fare ciò, mi sono documentato soprattutto tramite la documentazione ed i tutorial ufficiali\footcite{site:javatutorial} forniti da Oracle. Rispetto alla prima parte di stage, relativa ai \textit{big data}, ho svolto in modo più autonomo lo studio e lo svolgimento di esercizi riepilogativi che mi permettessero di mettere in pratica le conoscenze acquisite. Questo perchè, essendo alcune conoscenze di Java e sullo sviluppo di \gls{web app} già in mio possesso, non ho incontrato particolari difficoltà, se non alcuni dubbi che il tutor ha risolto tempestivamente.
 Per quanto riguarda la scelta dello strumento per sviluppare la parte di \textit{front-end}, inizialmente ho optato per le librerie React e Redux, in quanto già di mia conoscenza. Confrontandomi con il tutor, però, sono arrivato alla conclusione che l'utilizzo di Angular sarebbe stata la miglior scelta: in questo modo avrei potuto sfruttare il periodo in azienda per acquisire queste nuove conoscenze affiancato da personale qualificato ed esperto che avrebbe potuto aiutarmi in caso di incertezze. \\
 I requisiti individuati per la \gls{web app} seguono questa convenzione:\\\\
 \centerline{\textbf{R[Tipo][Importanza][Codice]}}\\
@@ -283,7 +283,7 @@ Dove:
 		\end{tabular}
 \end{table}%
 Inoltre, ho concordato assieme al tutor di utilizzare le risorse create a seguito dell'\hyperref[dataset]{elaborazione del \textit{dataset}} salvate in locale e non sul \gls{cluster}, in quanto l'amministratore di sistema, durante il mio ultimo periodo di stage, non aveva la possibilità di configurare l'accesso ad Hadoop tramite \gls{Java JDBC}. \\
-Data la natura didattica e la relativa semplicità della \gls{web app}, dopo il consiglio del tutor aziendale, ho scelto di utilizzare GlassFish\footcite{https://javaee.github.io/glassfish/} come \textit{application server} in quanto ben supportato.
+Data la natura didattica e la relativa semplicità della \gls{web app}, dopo il consiglio del tutor aziendale, ho scelto di utilizzare GlassFish\footcite{site:glassfish} come \textit{application server} in quanto ben supportato.
 Prima di cominciare con la progettazione del prodotto, ho inoltre considerato le operazioni necessarie sui dati da presentare già in possesso: il progetto richiedeva infatti la sola lettura di questi, quindi non mi sono preoccupato di impostare un sistema che fosse in grado di dare la possibilità all'utente di modificare i dati, essendo questa operazione non necessaria per la \gls{web app}.
 
 \subsection{Architettura software}
